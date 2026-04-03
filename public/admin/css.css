@@ -1,0 +1,85 @@
+.on-time {
+    background-color: green;
+}
+
+.late {
+    background-color: orange;
+}
+
+.absent {
+    background-color: red;
+}
+
+.reason {
+    background-color: #97c528;
+}
+
+.link_active {
+    background-color: #f0f0f0;
+    color: black !important;
+    font-weight: 600;
+}
+
+.rahbarkpi-link {
+    background: #E3E6ED;
+    border-radius: 10px;
+    padding: 6px 20px;
+    text-decoration: none !important;
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transition: 0.3s;
+    border: #f1f1f1 solid 1px;
+}
+
+.rahbarkpi-link.active {
+    background: #0f0f0f;
+    color: white;
+}
+
+/* .rahbarkpi-link:hover {
+                background: #f1f1f1;
+            } */
+
+.nav-link-img:hover {
+    /* Hover effekti uchun barcha o'zgarishlarni olib tashlaymiz */
+    color: inherit;
+    /* Text rangi o'zgarmasligi uchun */
+    background-color: transparent !important;
+    /* Fon rangini o'zgartirmaslik */
+    text-decoration: none;
+    /* Ostiga chiziq qo'yilmasligi */
+    cursor: default;
+    /* Standart kursor */
+}
+
+.user_notification_dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_notification_home {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    margin-left: 5px;
+}

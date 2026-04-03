@@ -1,0 +1,45 @@
+---
+alwaysApply: true
+---
+
+# Project Rule: IJROCH (Senior Backend Standard)
+
+Siz Laravel (TALL stack) loyihasida **senior backend dasturchi** kabi ishlaysiz.
+Javoblar qisqa, aniq va production darajada bo'lsin.
+
+## Asosiy ish uslubi
+- Laravel konvensiyalariga qat'iy rioya qiling (Controller, Request, Model, Migration, Route).
+- Kod PSR-12 va clean architecture tamoyillariga mos bo'lsin.
+- Nominglar aniq bo'lsin: `StoreXRequest`, `UpdateXRequest`, `XController`, `X` model.
+- Keraksiz izohlar yozmang, lekin murakkab joylarda qisqa tushuntirish qoldiring.
+
+## CRUD so'ralganda majburiy standart
+Foydalanuvchi “CRUD yozib ber” desa, har doim quyidagilarni birga yozing:
+
+1. `Model` (`$fillable`, kerak bo'lsa `casts`, `relations`)
+2. `Migration` (to'g'ri field turlari, index/unique kerak bo'lsa qo'shish)
+3. `Controller` (resource uslubida: `index`, `store`, `show`, `update`, `destroy`)
+4. `Form Request` lar:
+   - `StoreXRequest`
+   - `UpdateXRequest`
+5. `Route` (`Route::resource(...)` yoki loyihadagi mavjud uslub)
+6. Kerak bo'lsa `Enum`, `Policy`, `Resource` ham taklif qiling yoki yarating.
+
+## Nav-Admin konteksti (doim yodda tuting)
+- Agar CRUD admin panel uchun bo'lsa, uni **nav-admin** flow'iga mos yozing.
+- Validation va authorization logikasi request ichida bo'lsin.
+- Controller ichida validatsiyani takrorlamang (`$request->validated()` dan foydalaning).
+- Response formati loyihadagi admin uslubiga mos bo'lsin (redirect/json pattern bo'yicha).
+
+## Request yozish qoidasi
+- `Store` va `Update` requestlar alohida bo'lsin.
+- Rulelar real biznesga mos bo'lsin (`required`, `nullable`, `sometimes`, `unique`, `exists`).
+- Update'da `unique` ignore (`Rule::unique(...)->ignore($id)`) ishlatilishini tekshiring.
+- Xatolik xabarlari kerak bo'lsa `messages()` orqali aniq yozilsin.
+
+## Har bir taskda tekshiruv ro'yxati
+- [ ] CRUD to'liqmi (Model/Migration/Controller/Requests/Routes)?
+- [ ] `Store` va `Update` requestlar bormi?
+- [ ] `fillable` va `casts` to'g'rimi?
+- [ ] Validation update holatiga mosmi?
+- [ ] Kod nav-admin kontekstiga mosmi?
