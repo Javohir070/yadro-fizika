@@ -2,64 +2,90 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLeadershipRequest;
+use App\Http\Requests\UpdateLeadershipRequest;
+use App\Models\Department;
 use App\Models\Leadership;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class LeadershipController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): View
     {
-        //
+        $leaderships = Leadership::query()
+            ->with('department')
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.leadership.index', compact('leaderships'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): View
     {
-        //
+        $departments = Department::query()->active()->orderBy('name_uz')->get();
+
+        return view('admin.leadership.create', compact('departments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreLeadershipRequest $request): RedirectResponse
     {
-        //
+        $data = $request->validated();
+        $data['photo'] = $request->file('photo')->store('leaderships', 'public');
+
+        Leadership::query()->create($data);
+
+        return redirect()
+            ->route('admin.leaderships.index')
+            ->with('success', 'Rahbariyat ma\'lumoti muvaffaqiyatli yaratildi.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Leadership $leadership)
+    public function show(Leadership $leadership): View
     {
-        //
+        $leadership->load('department');
+
+        return view('admin.leadership.show', compact('leadership'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Leadership $leadership)
+    public function edit(Leadership $leadership): View
     {
-        //
+        $departments = Department::query()->active()->orderBy('name_uz')->get();
+
+        return view('admin.leadership.edit', compact('leadership', 'departments'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Leadership $leadership)
+    public function update(UpdateLeadershipRequest $request, Leadership $leadership): RedirectResponse
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            if ($leadership->photo && Storage::disk('public')->exists($leadership->photo)) {
+                Storage::disk('public')->delete($leadership->photo);
+            }
+
+            $data['photo'] = $request->file('photo')->store('leaderships', 'public');
+        } else {
+            unset($data['photo']);
+        }
+
+        $leadership->update($data);
+
+        return redirect()
+            ->route('admin.leaderships.index')
+            ->with('success', 'Rahbariyat ma\'lumoti muvaffaqiyatli yangilandi.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Leadership $leadership)
+    public function destroy(Leadership $leadership): RedirectResponse
     {
-        //
+        if ($leadership->photo && Storage::disk('public')->exists($leadership->photo)) {
+            Storage::disk('public')->delete($leadership->photo);
+        }
+
+        $leadership->delete();
+
+        return redirect()
+            ->route('admin.leaderships.index')
+            ->with('success', 'Rahbariyat ma\'lumoti muvaffaqiyatli o\'chirildi.');
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content_ru');
             $table->text('content_en');
             $table->string('image')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

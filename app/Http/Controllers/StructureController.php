@@ -2,64 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreStructureRequest;
+use App\Http\Requests\UpdateStructureRequest;
 use App\Models\Structure;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class StructureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): View
     {
-        //
+        $structures = Structure::query()->latest()->paginate(10);
+
+        return view('admin.structure.index', compact('structures'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.structure.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreStructureRequest $request): RedirectResponse
     {
-        //
+        $data = $request->validated();
+        $data['image'] = $request->file('image')->store('structures', 'public');
+
+        Structure::query()->create($data);
+
+        return redirect()
+            ->route('admin.structures.index')
+            ->with('success', 'Tuzilma muvaffaqiyatli yaratildi.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Structure $structure)
+    public function show(Structure $structure): View
     {
-        //
+        return view('admin.structure.show', compact('structure'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Structure $structure)
+    public function edit(Structure $structure): View
     {
-        //
+        return view('admin.structure.edit', compact('structure'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Structure $structure)
+    public function update(UpdateStructureRequest $request, Structure $structure): RedirectResponse
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            if ($structure->image && Storage::disk('public')->exists($structure->image)) {
+                Storage::disk('public')->delete($structure->image);
+            }
+
+            $data['image'] = $request->file('image')->store('structures', 'public');
+        } else {
+            unset($data['image']);
+        }
+
+        $structure->update($data);
+
+        return redirect()
+            ->route('admin.structures.index')
+            ->with('success', 'Tuzilma muvaffaqiyatli yangilandi.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Structure $structure)
+    public function destroy(Structure $structure): RedirectResponse
     {
-        //
+        if ($structure->image && Storage::disk('public')->exists($structure->image)) {
+            Storage::disk('public')->delete($structure->image);
+        }
+
+        $structure->delete();
+
+        return redirect()
+            ->route('admin.structures.index')
+            ->with('success', 'Tuzilma muvaffaqiyatli o\'chirildi.');
     }
 }

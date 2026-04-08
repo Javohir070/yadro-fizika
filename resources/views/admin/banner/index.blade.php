@@ -3,9 +3,15 @@
     @include('admin.components.navbar_top', ['maniUrl' => 'Bannerlar'])
     <div class="mb-9">
 
-        <div class="row g-3 mb-4">
+        <div class="row g-3 mb-4 align-items-center justify-content-between">
             <div class="col-auto">
-                <h2 class="mb-0">Bannerlar</h2>
+                <h2 class="mb-0 fw-semibold">Bannerlar</h2>
+            </div>
+            <div class="col-auto">
+                <a href="{{ route('admin.banners.create') }}" class="btn btn-primary d-inline-flex align-items-center gap-2 px-3">
+                    <i data-feather="plus" class="w-4 h-4"></i>
+                    <span>Qo'shish</span>
+                </a>
             </div>
         </div>
 
@@ -22,6 +28,7 @@
                             <tr>
                                 <th style="width: 40px;">ID</th>
                                 <th>Title(UZ)</th>
+                                <th>Rasm</th>
                                 <th>Holati</th>
                                 <th class="text-end pe-8">Amallar</th>
                             </tr>
@@ -30,13 +37,25 @@
                             @forelse ($banners as $banner)
                                 <tr>
                                     <td style="text-align: center;">
-                                        {{ $banner->id }}   
+                                        {{ $loop->iteration }}   
                                     </td>
                                     <td>
                                         {{ $banner->title_uz }}
                                     </td>
                                     <td>
-                                        {{ $banner->is_active ? 'Aktiv' : 'Nofaol' }}
+                                        @if ($banner->image)
+                                            <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title_uz }}"
+                                                style="width: 80px; height: 50px; object-fit: cover;" class="rounded border">
+                                        @else
+                                            <span class="text-body-tertiary">Yo'q</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <button type="button"
+                                            class="btn btn-sm rounded-pill {{ $banner->is_active ? 'btn-success' : 'btn-secondary' }}"
+                                            disabled>
+                                            {{ $banner->is_active ? 'Aktiv' : 'Nofaol' }}
+                                        </button>
                                     </td>
                                     <td class="text-end pe-4">
                                         <div class="d-inline-flex align-items-center gap-2">
@@ -70,8 +89,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center py-5">
-                                        <div class="text-body-tertiary mb-2">Bannerlar topilmadi</div>
+                                    <td colspan="5" class="text-center py-5">
                                         <a href="{{ route('admin.banners.create') }}"
                                             class="btn btn-primary btn-sm">Birinchi bannerni qo'shish</a>
                                     </td>
@@ -83,10 +101,8 @@
                 </div>
             </div>
 
-            <div class="card-footer bg-transparent border-0 pt-3 pb-3 d-flex justify-content-end">
-                @if ($banners->hasPages())
+            <div class="card-footer bg-transparent border-0 pt-3 pb-3 d-flex justify-content-center">
                     {{ $banners->links() }}
-                @endif
             </div>
         </div>
 

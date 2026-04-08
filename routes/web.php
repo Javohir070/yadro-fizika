@@ -4,10 +4,15 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeadershipController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScientificCouncilController;
 use App\Http\Controllers\StructureController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\DoctoralController;
 use App\Http\Controllers\HomeController;
 
 // Route::get('/', function () {
@@ -29,7 +34,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('departments', DepartmentController::class);
         Route::resource('leaderships', LeadershipController::class);
         Route::resource('news', NewsController::class);
+        Route::resource('images', ImageController::class);
+        Route::resource('partners', PartnerController::class);
+        Route::resource('galleries', GalleryController::class);
         Route::resource('structures', StructureController::class);
+        Route::resource('doctorals', DoctoralController::class);
+        Route::resource('scientific-councils', ScientificCouncilController::class);
     });
 });
 

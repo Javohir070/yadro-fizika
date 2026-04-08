@@ -2,64 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDepartmentRequest;
+use App\Http\Requests\UpdateDepartmentRequest;
 use App\Models\Department;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): View
     {
-        //
+        $departments = Department::query()->latest()->paginate(10);
+
+        return view('admin.department.index', compact('departments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.department.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreDepartmentRequest $request): RedirectResponse
     {
-        //
+        Department::query()->create($request->validated());
+
+        return redirect()
+            ->route('admin.departments.index')
+            ->with('success', 'Bo\'lim muvaffaqiyatli yaratildi.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Department $department)
+    public function show(Department $department): View
     {
-        //
+        return view('admin.department.show', compact('department'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Department $department)
+    public function edit(Department $department): View
     {
-        //
+        return view('admin.department.edit', compact('department'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Department $department)
+    public function update(UpdateDepartmentRequest $request, Department $department): RedirectResponse
     {
-        //
+        $department->update($request->validated());
+
+        return redirect()
+            ->route('admin.departments.index')
+            ->with('success', 'Bo\'lim muvaffaqiyatli yangilandi.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Department $department)
+    public function destroy(Department $department): RedirectResponse
     {
-        //
+        $department->delete();
+
+        return redirect()
+            ->route('admin.departments.index')
+            ->with('success', 'Bo\'lim muvaffaqiyatli o\'chirildi.');
     }
 }

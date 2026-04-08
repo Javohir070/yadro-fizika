@@ -8,7 +8,7 @@
     <meta name="description" content="{{ config('app.name') }}">
     <meta name="keywords" content="{{ config('app.name') }}">
     <meta name="author" content="{{ config('app.name') }}">
-    <link  href="/admin/assets/img/logo.png" rel="stylesheet">
+    <link  href="/admin/assets/img/logo." rel="stylesheet">
     <title>{{ config('app.name') }}</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/admin/vendors/simplebar/simplebar.min.js"></script>

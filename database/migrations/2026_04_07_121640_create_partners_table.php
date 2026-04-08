@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name_uz', 600);
+            $table->string('name_ru', 600);
+            $table->string('name_en', 600);
+            $table->string('description_uz', 600);
+            $table->string('description_ru', 600);
+            $table->string('description_en', 600);
             $table->string('image');
-            $table->string('url');
+            $table->string('link');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

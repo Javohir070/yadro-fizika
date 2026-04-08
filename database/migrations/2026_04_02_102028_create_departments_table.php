@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->string('name_uz', 1000);
-            $table->string('name_ru', 1000);
-            $table->string('name_en', 1000);
+            $table->string('name_uz', 600);
+            $table->string('name_ru', 600);
+            $table->string('name_en', 600);
             $table->enum('type', DepartmentType::cases());
             $table->boolean('is_active')->default(true);
             $table->timestamps();
