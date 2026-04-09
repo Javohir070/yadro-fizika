@@ -101,8 +101,11 @@
                     </div>
                 </div>
 
-                <div class="mt-4 d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                <div class="mt-4 d-flex gap-2 justify-content-end">
+                    <button type="submit" class="btn btn-primary d-inline-flex align-items-center gap-2">
+                            <i data-feather="save" class="w-4 h-4"></i>
+                            <span>Saqlash</span>
+                        </button>
                     <a href="{{ route('admin.scientific-councils.index') }}" class="btn btn-outline-secondary">Bekor qilish</a>
                 </div>
             </form>

@@ -144,6 +144,22 @@
 
 <li class="nav-item">
     <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/video-gallers*') ? 'active' : '' }}"
+            href="{{ route('admin.video-gallers.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="video" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Video galereya</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+
+<li class="nav-item">
+    <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/doctorals*') ? 'active' : '' }}"
             href="{{ route('admin.doctorals.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
             <div class="d-flex align-items-center">
@@ -184,6 +200,22 @@
                 </span>
                 <span class="nav-link-text-wrapper">
                     <span class="nav-link-text">Ilmiy kengash</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+
+<li class="nav-item">
+    <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/council-members*') ? 'active' : '' }}"
+            href="{{ route('admin.council-members.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="user-check" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Kengash a'zolari</span>
                 </span>
             </div>
         </a>

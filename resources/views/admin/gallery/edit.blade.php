@@ -6,7 +6,7 @@
         <a href="{{ route('admin.galleries.index') }}" class="btn btn-secondary">Orqaga</a>
     </div>
 
-    <div class="card shadow-sm border-0">
+    <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
             <form action="{{ route('admin.galleries.update', $gallery) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="mt-4 d-flex gap-2">
+                <div class="mt-4 d-flex gap-2 justify-content-end">
                     <button type="submit" class="btn btn-primary">Yangilash</button>
                     <a href="{{ route('admin.galleries.show', $gallery) }}" class="btn btn-outline-info">Ko'rish</a>
                     <a href="{{ route('admin.galleries.index') }}" class="btn btn-outline-secondary">Bekor qilish</a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CouncilMemberController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeadershipController;
 use App\Http\Controllers\NewsController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScientificCouncilController;
 use App\Http\Controllers\StructureController;
+use App\Http\Controllers\VideoGallerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DoctoralController;
@@ -40,6 +42,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('structures', StructureController::class);
         Route::resource('doctorals', DoctoralController::class);
         Route::resource('scientific-councils', ScientificCouncilController::class);
+        Route::resource('council-members', CouncilMemberController::class);
+        Route::resource('video-gallers', VideoGallerController::class);
     });
 });
 

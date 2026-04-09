@@ -112,7 +112,7 @@
                     </div>
                 </div>
 
-                <div class="mt-4 d-flex gap-2">
+                <div class="mt-4 d-flex gap-2 justify-content-end">
                     <button type="submit" class="btn btn-primary">Yangilash</button>
                     <a href="{{ route('admin.partners.show', $partner) }}" class="btn btn-outline-info">Ko'rish</a>
                     <a href="{{ route('admin.partners.index') }}" class="btn btn-outline-secondary">Bekor qilish</a>

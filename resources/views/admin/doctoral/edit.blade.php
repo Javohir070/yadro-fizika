@@ -97,7 +97,7 @@
                     @endif
                 </div>
 
-                <div class="mt-4 d-flex gap-2">
+                <div class="mt-4 d-flex gap-2 justify-content-end">
                     <button type="submit" class="btn btn-primary">Yangilash</button>
                     <a href="{{ route('admin.doctorals.show', $doctoral) }}" class="btn btn-outline-info">Ko'rish</a>
                     <a href="{{ route('admin.doctorals.index') }}" class="btn btn-outline-secondary">Bekor qilish</a>
