@@ -48,6 +48,54 @@
 
 <li class="nav-item">
     <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/institute-histories*') ? 'active' : '' }}"
+            href="{{ route('admin.institute-histories.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="clock" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Institut tarixi</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+
+<li class="nav-item">
+    <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/institute-directors*') ? 'active' : '' }}"
+            href="{{ route('admin.institute-directors.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="user" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Institut direktorlari</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+
+<li class="nav-item">
+    <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/institute-structures*') ? 'active' : '' }}"
+            href="{{ route('admin.institute-structures.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="layers" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Institut tuzilmasi</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+
+<li class="nav-item">
+    <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/structures*') ? 'active' : '' }}"
             href="{{ route('admin.structures.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
             <div class="d-flex align-items-center">

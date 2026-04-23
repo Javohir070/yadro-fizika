@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('abouts', function (Blueprint $table) {
             $table->id();
-            $table->text('content_uz');
-            $table->text('content_ru');
-            $table->text('content_en');
+            $table->longText('content_uz');
+            $table->longText('content_ru');
+            $table->longText('content_en');
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();

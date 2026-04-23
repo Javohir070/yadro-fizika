@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title_uz', 1000);
             $table->string('title_ru', 1000);
             $table->string('title_en', 1000);
-            $table->text('council_duties_uz');
-            $table->text('council_duties_ru');
-            $table->text('council_duties_en');
+            $table->longText('council_duties_uz');
+            $table->longText('council_duties_ru');
+            $table->longText('council_duties_en');
             $table->string('image');
             $table->boolean('is_active')->default(true);
             $table->timestamps();

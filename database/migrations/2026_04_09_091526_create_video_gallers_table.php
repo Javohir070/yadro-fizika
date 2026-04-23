@@ -16,9 +16,9 @@ return new class extends Migration
             $table->text('title_uz', 1000);
             $table->text('title_ru', 1000);
             $table->text('title_en', 1000);
-            $table->text('description_uz', 1000)->nullable();
-            $table->text('description_ru', 1000)->nullable();
-            $table->text('description_en', 1000)->nullable();
+            $table->longText('description_uz', 1000)->nullable();
+            $table->longText('description_ru', 1000)->nullable();
+            $table->longText('description_en', 1000)->nullable();
             $table->string('url');
             $table->boolean('is_active')->default(true);
             $table->integer('order')->default(0);

@@ -46,14 +46,12 @@
                         <label class="form-label">Sarlavha (UZ) *</label>
                         <input type="text" name="title_uz" value="{{ old('title_uz', $scientificCouncil->title_uz) }}"
                             class="form-control @error('title_uz') is-invalid @enderror">
-                        @error('title_uz') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('title_uz')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Kengash vazifalari (UZ) *</label>
-                        <textarea name="council_duties_uz" rows="6" data-tinymce='{"height":"22rem"}'
-                            class="form-control @error('council_duties_uz') is-invalid @enderror">{{ old('council_duties_uz', $scientificCouncil->council_duties_uz) }}</textarea>
-                        @error('council_duties_uz') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="council_duties_uz" label="Kengash vazifalari (UZ)"
+                        :value="$scientificCouncil->council_duties_uz" :rows="6" :height="352" />
                 </div>
 
                 <div class="row g-3 scientific-council-lang-panel-edit d-none" data-lang-panel="ru">
@@ -61,14 +59,12 @@
                         <label class="form-label">Sarlavha (RU) *</label>
                         <input type="text" name="title_ru" value="{{ old('title_ru', $scientificCouncil->title_ru) }}"
                             class="form-control @error('title_ru') is-invalid @enderror">
-                        @error('title_ru') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('title_ru')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Kengash vazifalari (RU) *</label>
-                        <textarea name="council_duties_ru" rows="6" data-tinymce='{"height":"22rem"}'
-                            class="form-control @error('council_duties_ru') is-invalid @enderror">{{ old('council_duties_ru', $scientificCouncil->council_duties_ru) }}</textarea>
-                        @error('council_duties_ru') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="council_duties_ru" label="Kengash vazifalari (RU)"
+                        :value="$scientificCouncil->council_duties_ru" :rows="6" :height="352" />
                 </div>
 
                 <div class="row g-3 scientific-council-lang-panel-edit d-none" data-lang-panel="en">
@@ -76,21 +72,21 @@
                         <label class="form-label">Sarlavha (EN) *</label>
                         <input type="text" name="title_en" value="{{ old('title_en', $scientificCouncil->title_en) }}"
                             class="form-control @error('title_en') is-invalid @enderror">
-                        @error('title_en') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('title_en')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Kengash vazifalari (EN) *</label>
-                        <textarea name="council_duties_en" rows="6" data-tinymce='{"height":"22rem"}'
-                            class="form-control @error('council_duties_en') is-invalid @enderror">{{ old('council_duties_en', $scientificCouncil->council_duties_en) }}</textarea>
-                        @error('council_duties_en') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="council_duties_en" label="Kengash vazifalari (EN)"
+                        :value="$scientificCouncil->council_duties_en" :rows="6" :height="352" />
                 </div>
 
                 <div class="row g-3 mt-1">
                     <div class="col-md-6">
                         <label class="form-label">Rasm</label>
                         <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
-                        @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Holati *</label>
@@ -98,7 +94,9 @@
                             <option value="1" {{ old('is_active', $scientificCouncil->is_active) == 1 ? 'selected' : '' }}>Aktiv</option>
                             <option value="0" {{ old('is_active', $scientificCouncil->is_active) == 0 ? 'selected' : '' }}>Nofaol</option>
                         </select>
-                        @error('is_active') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('is_active')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-12">
                         <img src="{{ asset('storage/' . $scientificCouncil->image) }}" alt="Scientific council image"
@@ -115,30 +113,6 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            const tabs = document.querySelectorAll('#scientific-council-lang-tabs-edit [data-lang]');
-            const panels = document.querySelectorAll('.scientific-council-lang-panel-edit');
-
-            function activateLang(lang) {
-                tabs.forEach((tab) => {
-                    const isActive = tab.dataset.lang === lang;
-                    tab.classList.toggle('active', isActive);
-                    tab.classList.toggle('text-body-tertiary', !isActive);
-                });
-
-                panels.forEach((panel) => {
-                    panel.classList.toggle('d-none', panel.dataset.langPanel !== lang);
-                });
-            }
-
-            tabs.forEach((tab) => {
-                tab.addEventListener('click', function() {
-                    activateLang(this.dataset.lang);
-                });
-            });
-
-            activateLang('uz');
-        })();
-    </script>
+    <x-admin.summernote-lang-tabs-script tabs-selector="#scientific-council-lang-tabs-edit [data-lang]"
+        panels-selector=".scientific-council-lang-panel-edit" />
 @endsection

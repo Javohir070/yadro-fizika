@@ -24,6 +24,8 @@
     <link href="/admin/assets/css/user-rtl.min.css" type="text/css" rel="stylesheet" id="user-style-rtl">
     <link href="/admin/assets/css/user.min.css" type="text/css" rel="stylesheet" id="user-style-default">
     <link href="/admin/vendors/flatpickr/flatpickr.min.css" rel="stylesheet" />
+    {{-- Lite build: no Bootstrap JS coupling (BS5 + summernote-bs4 breaks toolbar/modals) --}}
+    <link rel="stylesheet" href="/admin/summernote/summernote-lite.min.css">
 
     <script>
         var phoenixIsRTL = window.config.config.phoenixIsRTL;
@@ -45,6 +47,7 @@
     <link href="/admin/vendors/leaflet.markercluster/MarkerCluster.Default.css" rel="stylesheet">
     <link href="/admin/vendors/dropzone/dropzone.css" rel="stylesheet" />
     <link href="/admin/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/css/summernote-toolbar-bs5-fix.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -53,7 +56,7 @@
 
 </head>
 
-<body @class(['hr-job-admin' => str_starts_with(request()->path(), 'admin/hr-job')])>
+<body>
 
     <main class="main" id="top">
 
@@ -490,6 +493,8 @@
     <script src="/admin/vendors/choices/choices.min.js"></script>
     <script src="/admin/vendors/tinymce/tinymce.min.js"></script>
     <script src="/admin/vendors/dropzone/dropzone-min.js"></script>
+    <script src="/admin/summernote/summernote-lite.min.js"></script>
+    @stack('admin-scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var toastEl = document.querySelector('.toast');
@@ -500,6 +505,80 @@
                 toast.show();
             }
         });
+    </script>
+
+    <script>
+    $(function () {
+        //Add text editor (guard: avoid init on missing nodes)
+        if ($('#page').length) {
+        $('#page').summernote({
+            placeholder: 'Sahifa ma`lumotlarini kiriting!',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            tabsize: 4,
+            height: 350
+        });
+        }
+        
+        if ($('#data').length) {
+        $('#data').summernote({
+            placeholder: 'Maydon ma`lumotlarini kiriting!',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            height: 200
+        });
+        }
+        
+        if ($('#content').length) {
+        $('#content').summernote({
+            placeholder: 'Maydon ma`lumotlarini kiriting!',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            height: 200
+        });
+        }
+
+        var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+        });
+
+        
+    })
+    
+    @yield('toastr')
     </script>
 </body>
 

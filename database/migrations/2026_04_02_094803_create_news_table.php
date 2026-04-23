@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title_uz', 1000);
             $table->string('title_ru', 1000);
             $table->string('title_en', 1000);
-            $table->text('description_uz');
-            $table->text('description_ru');
-            $table->text('description_en');
+            $table->longText('description_uz');
+            $table->longText('description_ru');
+            $table->longText('description_en');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

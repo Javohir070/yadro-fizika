@@ -42,36 +42,18 @@
                 </ul>
 
                 <div class="row g-3 about-lang-panel-edit" data-lang-panel="uz">
-                    <div class="col-md-12">
-                        <label class="form-label">Content (UZ) *</label>
-                        <textarea name="content_uz" rows="8" data-tinymce='{"height":"30rem"}'
-                            class="form-control @error('content_uz') is-invalid @enderror">{{ old('content_uz', $about->content_uz) }}</textarea>
-                        @error('content_uz')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    <x-admin.summernote-field name="content_uz" label="Content (UZ)" :value="$about->content_uz" :rows="8"
+                        :height="480" />
                 </div>
 
                 <div class="row g-3 about-lang-panel-edit d-none" data-lang-panel="ru">
-                    <div class="col-md-12">
-                        <label class="form-label">Content (RU) *</label>
-                        <textarea name="content_ru" rows="6" data-tinymce='{"height":"24rem"}'
-                            class="form-control @error('content_ru') is-invalid @enderror">{{ old('content_ru', $about->content_ru) }}</textarea>
-                        @error('content_ru')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    <x-admin.summernote-field name="content_ru" label="Content (RU)" :value="$about->content_ru" :rows="6"
+                        :height="384" />
                 </div>
 
                 <div class="row g-3 about-lang-panel-edit d-none" data-lang-panel="en">
-                    <div class="col-md-12">
-                        <label class="form-label">Content (EN) *</label>
-                        <textarea name="content_en" rows="6" data-tinymce='{"height":"24rem"}'
-                            class="form-control @error('content_en') is-invalid @enderror">{{ old('content_en', $about->content_en) }}</textarea>
-                        @error('content_en')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    <x-admin.summernote-field name="content_en" label="Content (EN)" :value="$about->content_en" :rows="6"
+                        :height="384" />
                 </div>
 
                 <div class="row g-3 mt-1">
@@ -115,31 +97,6 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            const tabs = document.querySelectorAll('#about-lang-tabs-edit [data-lang]');
-            const panels = document.querySelectorAll('.about-lang-panel-edit');
-
-            function activateLang(lang) {
-                tabs.forEach((tab) => {
-                    const isActive = tab.dataset.lang === lang;
-                    tab.classList.toggle('active', isActive);
-                    tab.classList.toggle('text-body-tertiary', !isActive);
-                });
-
-                panels.forEach((panel) => {
-                    panel.classList.toggle('d-none', panel.dataset.langPanel !== lang);
-                });
-            }
-
-            tabs.forEach((tab) => {
-                tab.addEventListener('click', function() {
-                    activateLang(this.dataset.lang);
-                });
-            });
-
-            activateLang('uz');
-        })();
-    </script>
-
+    <x-admin.summernote-lang-tabs-script tabs-selector="#about-lang-tabs-edit [data-lang]"
+        panels-selector=".about-lang-panel-edit" />
 @endsection

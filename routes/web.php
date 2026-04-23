@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DoctoralController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InstituteDirectorController;
+use App\Http\Controllers\InstituteHistoryController;
+use App\Http\Controllers\InstituteStructureController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -33,6 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('banners', BannerController::class);
         Route::resource('abouts', AboutController::class);
+        Route::resource('institute-histories', InstituteHistoryController::class);
+        Route::resource('institute-directors', InstituteDirectorController::class);
+        Route::resource('institute-structures', InstituteStructureController::class);
         Route::resource('departments', DepartmentController::class);
         Route::resource('leaderships', LeadershipController::class);
         Route::resource('news', NewsController::class);

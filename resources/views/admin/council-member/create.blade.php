@@ -166,30 +166,6 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            const tabs = document.querySelectorAll('#council-member-lang-tabs-create [data-lang]');
-            const panels = document.querySelectorAll('.council-member-lang-panel');
-
-            function activateLang(lang) {
-                tabs.forEach((tab) => {
-                    const isActive = tab.dataset.lang === lang;
-                    tab.classList.toggle('active', isActive);
-                    tab.classList.toggle('text-body-tertiary', !isActive);
-                });
-
-                panels.forEach((panel) => {
-                    panel.classList.toggle('d-none', panel.dataset.langPanel !== lang);
-                });
-            }
-
-            tabs.forEach((tab) => {
-                tab.addEventListener('click', function() {
-                    activateLang(this.dataset.lang);
-                });
-            });
-
-            activateLang('uz');
-        })();
-    </script>
+    <x-admin.summernote-lang-tabs-script tabs-selector="#council-member-lang-tabs-create [data-lang]"
+        panels-selector=".council-member-lang-panel" />
 @endsection
