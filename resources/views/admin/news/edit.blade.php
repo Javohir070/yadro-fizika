@@ -41,49 +41,37 @@
                     </li>
                 </ul>
 
-                <div class="row g-3 news-lang-panel-edit" data-lang-panel="uz">
+                <div class="row g-3 news-lang-panel" data-lang-panel="uz">
                     <div class="col-md-12">
                         <label class="form-label">Sarlavha (UZ) *</label>
                         <input type="text" name="title_uz" value="{{ old('title_uz', $news->title_uz) }}"
                             class="form-control @error('title_uz') is-invalid @enderror">
                         @error('title_uz') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Tavsif (UZ) *</label>
-                        <textarea name="description_uz" rows="8" data-tinymce='{"height":"26rem"}'
-                            class="form-control @error('description_uz') is-invalid @enderror">{{ old('description_uz', $news->description_uz) }}</textarea>
-                        @error('description_uz') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="description_uz" label="Tavsif (UZ) *" :rows="8" :height="416"
+                        :value="old('description_uz', $news->description_uz)" />
                 </div>
 
-                <div class="row g-3 news-lang-panel-edit d-none" data-lang-panel="ru">
+                <div class="row g-3 news-lang-panel d-none" data-lang-panel="ru">
                     <div class="col-md-12">
                         <label class="form-label">Sarlavha (RU) *</label>
                         <input type="text" name="title_ru" value="{{ old('title_ru', $news->title_ru) }}"
                             class="form-control @error('title_ru') is-invalid @enderror">
                         @error('title_ru') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Tavsif (RU) *</label>
-                        <textarea name="description_ru" rows="8" data-tinymce='{"height":"26rem"}'
-                            class="form-control @error('description_ru') is-invalid @enderror">{{ old('description_ru', $news->description_ru) }}</textarea>
-                        @error('description_ru') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="description_ru" label="Tavsif (RU) *" :rows="8" :height="416"
+                        :value="old('description_ru', $news->description_ru)" />
                 </div>
 
-                <div class="row g-3 news-lang-panel-edit d-none" data-lang-panel="en">
+                <div class="row g-3 news-lang-panel d-none" data-lang-panel="en">
                     <div class="col-md-12">
                         <label class="form-label">Sarlavha (EN) *</label>
                         <input type="text" name="title_en" value="{{ old('title_en', $news->title_en) }}"
                             class="form-control @error('title_en') is-invalid @enderror">
                         @error('title_en') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Tavsif (EN) *</label>
-                        <textarea name="description_en" rows="8" data-tinymce='{"height":"26rem"}'
-                            class="form-control @error('description_en') is-invalid @enderror">{{ old('description_en', $news->description_en) }}</textarea>
-                        @error('description_en') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="description_en" label="Tavsif (EN) *" :rows="8" :height="416"
+                        :value="old('description_en', $news->description_en)" />
                 </div>
 
                 <div class="row g-3 mt-1">
@@ -125,30 +113,6 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            const tabs = document.querySelectorAll('#news-lang-tabs-edit [data-lang]');
-            const panels = document.querySelectorAll('.news-lang-panel-edit');
-
-            function activateLang(lang) {
-                tabs.forEach((tab) => {
-                    const isActive = tab.dataset.lang === lang;
-                    tab.classList.toggle('active', isActive);
-                    tab.classList.toggle('text-body-tertiary', !isActive);
-                });
-
-                panels.forEach((panel) => {
-                    panel.classList.toggle('d-none', panel.dataset.langPanel !== lang);
-                });
-            }
-
-            tabs.forEach((tab) => {
-                tab.addEventListener('click', function() {
-                    activateLang(this.dataset.lang);
-                });
-            });
-
-            activateLang('uz');
-        })();
-    </script>
+    <x-admin.summernote-lang-tabs-script tabs-selector="#news-lang-tabs-edit [data-lang]"
+        panels-selector=".news-lang-panel" />
 @endsection

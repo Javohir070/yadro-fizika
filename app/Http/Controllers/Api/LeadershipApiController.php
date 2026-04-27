@@ -4,30 +4,37 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\Concerns\ResolvesPublicMediaUrl;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiListRequest;
+use App\Http\Requests\LeadershipRequest;
 use App\Models\Leadership;
 use App\Trait\ApiResponseTrait;
 
-/**
- * Rahbariyat kadrlari. `department` bog‘lanishi orqali bo‘lim nomi tanlangan tilda qo‘shiladi.
- */
 class LeadershipApiController extends Controller
 {
     use ApiResponseTrait;
     use ResolvesPublicMediaUrl;
 
-    public function index(ApiListRequest $request)
+    /**
+     * Rahbariyat kadrlari ma’lumotlari.
+     */
+    public function index(LeadershipRequest $request)
     {
         $validated = $request->validated();
-        $status = (bool) (int) $validated['status'];
         $lang = $this->resolveLang($validated['lang']);
         $perPage = (int) $validated['per_page'];
+        $type = $validated['type'] ?? null;
 
         $paginator = Leadership::query()
             ->with('department')
-            ->where('is_active', $status)
+            ->where('is_active', 1)
+            ->whereHas('department', function ($query) use ($type) {
+                $query->where('type', $type);
+            })
             ->latest()
             ->paginate($perPage);
+        
+        if ($paginator->isEmpty()) {
+            return $this->notFoundResponse('Rahbariyat ma\'lumotlari topilmadi', 200);
+        }
 
         $paginator->getCollection()->transform(function (Leadership $row) use ($lang) {
             $dept = $row->department;
@@ -41,7 +48,7 @@ class LeadershipApiController extends Controller
                 'position' => $row->{'position_'.$lang},
                 'phone' => $row->phone,
                 'email' => $row->email,
-                'photo_url' => $this->storagePublicUrl($row->photo),
+                'photo' => $this->storagePublicUrl($row->photo),
                 'created_at' => $row->created_at,
                 'updated_at' => $row->updated_at,
             ];

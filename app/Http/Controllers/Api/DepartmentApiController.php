@@ -7,13 +7,13 @@ use App\Http\Requests\ApiListRequest;
 use App\Models\Department;
 use App\Trait\ApiResponseTrait;
 
-/**
- * Bo‘limlar / boshqarmalar ro‘yxati. `type` — `DepartmentType` enum qiymati (string).
- */
 class DepartmentApiController extends Controller
 {
     use ApiResponseTrait;
 
+    /**
+     * Bo‘limlar ro‘yxati.
+     */
     public function index(ApiListRequest $request)
     {
         $validated = $request->validated();
@@ -29,7 +29,7 @@ class DepartmentApiController extends Controller
         $paginator->getCollection()->transform(function (Department $row) use ($lang) {
             return [
                 'id' => $row->id,
-                'name' => $row->{'name_'.$lang},
+                'name' => $row->{'name_' . $lang},
                 'type' => $row->type?->value,
                 'created_at' => $row->created_at,
                 'updated_at' => $row->updated_at,

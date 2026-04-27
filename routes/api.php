@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PartnerApiController;
 use App\Http\Controllers\Api\ScientificCouncilApiController;
 use App\Http\Controllers\Api\StructureApiController;
+use App\Http\Controllers\Api\StatApiController;
 use App\Http\Controllers\Api\VideoGalleryApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,24 +35,20 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('about', [AboutApiController::class, 'index']);
-Route::get('abouts', [AboutApiController::class, 'list']);
 
 Route::get('institute-director', [InstituteDirectorController::class, 'index']);
-Route::get('institute-directors', [InstituteDirectorController::class, 'list']);
 
 Route::get('institute-history', [InstituteHistoryApiController::class, 'index']);
-Route::get('institute-histories', [InstituteHistoryApiController::class, 'list']);
 
 Route::get('institute-structure', [InstituteStructureApiController::class, 'index']);
-Route::get('institute-structures', [InstituteStructureApiController::class, 'list']);
 
 Route::get('scientific-council', [ScientificCouncilApiController::class, 'index']);
-Route::get('scientific-councils', [ScientificCouncilApiController::class, 'list']);
 
 Route::get('structure', [StructureApiController::class, 'index']);
 Route::get('structures', [StructureApiController::class, 'list']);
 
 Route::get('news', [NewsApiController::class, 'index']);
+Route::get('news/{id}', [NewsApiController::class, 'show']);
 Route::get('banners', [BannerApiController::class, 'index']);
 Route::get('galleries', [GalleryApiController::class, 'index']);
 Route::get('video-gallery', [VideoGalleryApiController::class, 'index']);
@@ -60,3 +57,4 @@ Route::get('leadership', [LeadershipApiController::class, 'index']);
 Route::get('departments', [DepartmentApiController::class, 'index']);
 Route::get('doctorals', [DoctoralApiController::class, 'index']);
 Route::get('council-members', [CouncilMemberApiController::class, 'index']);
+Route::get('stats', [StatApiController::class, 'index']);

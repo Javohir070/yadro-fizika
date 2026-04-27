@@ -8,14 +8,14 @@ use App\Http\Requests\ApiListRequest;
 use App\Models\Doctoral;
 use App\Trait\ApiResponseTrait;
 
-/**
- * Doktorantura / mutaxassislik nomlari va fayl havolalari.
- */
 class DoctoralApiController extends Controller
 {
     use ApiResponseTrait;
     use ResolvesPublicMediaUrl;
 
+    /**
+     * Doktorantura mutaxassisliklari ro‘yxati.
+     */
     public function index(ApiListRequest $request)
     {
         $validated = $request->validated();
@@ -31,9 +31,9 @@ class DoctoralApiController extends Controller
         $paginator->getCollection()->transform(function (Doctoral $row) use ($lang) {
             return [
                 'id' => $row->id,
-                'name' => $row->{'name_'.$lang},
+                'name' => $row->{'name_' . $lang},
                 'code' => $row->code,
-                'file_url' => $this->storagePublicUrl($row->file),
+                'file' => $this->storagePublicUrl($row->file),
                 'created_at' => $row->created_at,
                 'updated_at' => $row->updated_at,
             ];

@@ -41,21 +41,33 @@
                 <div class="col-md-4">
                     <div class="p-3 rounded border">
                         <div class="text-body-tertiary fs-9 mb-2">Tavsif (UZ)</div>
-                        <div>{{ $videoGaller->description_uz ?: '-' }}</div>
+                        @if (filled($videoGaller->description_uz))
+                            <div>{!! $videoGaller->description_uz !!}</div>
+                        @else
+                            <div>-</div>
+                        @endif
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="p-3 rounded border">
                         <div class="text-body-tertiary fs-9 mb-2">Tavsif (RU)</div>
-                        <div>{{ $videoGaller->description_ru ?: '-' }}</div>
+                        @if (filled($videoGaller->description_ru))
+                            <div>{!! $videoGaller->description_ru !!}</div>
+                        @else
+                            <div>-</div>
+                        @endif
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="p-3 rounded border">
                         <div class="text-body-tertiary fs-9 mb-2">Tavsif (EN)</div>
-                        <div>{{ $videoGaller->description_en ?: '-' }}</div>
+                        @if (filled($videoGaller->description_en))
+                            <div>{!! $videoGaller->description_en !!}</div>
+                        @else
+                            <div>-</div>
+                        @endif
                     </div>
                 </div>
 

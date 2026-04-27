@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('video_gallers', function (Blueprint $table) {
             $table->id();
-            $table->text('title_uz', 1000);
-            $table->text('title_ru', 1000);
-            $table->text('title_en', 1000);
-            $table->longText('description_uz', 1000)->nullable();
-            $table->longText('description_ru', 1000)->nullable();
-            $table->longText('description_en', 1000)->nullable();
+            $table->text('title_uz');
+            $table->text('title_ru');
+            $table->text('title_en');
+            $table->longText('description_uz')->nullable();
+            $table->longText('description_ru')->nullable();
+            $table->longText('description_en')->nullable();
             $table->string('url');
             $table->boolean('is_active')->default(true);
             $table->integer('order')->default(0);

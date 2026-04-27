@@ -50,11 +50,8 @@
                             class="form-control @error('title_uz') is-invalid @enderror" required>
                         @error('title_uz') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                    <div class="col-lg-12">
-                        <label class="form-label">Tavsif (UZ)</label>
-                        <textarea name="description_uz" rows="3" class="form-control @error('description_uz') is-invalid @enderror">{{ old('description_uz', $videoGaller->description_uz) }}</textarea>
-                        @error('description_uz') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="description_uz" label="Tavsif (UZ)" :rows="6" :height="320"
+                        :value="old('description_uz', $videoGaller->description_uz)" />
                 </div>
 
                 <div class="row g-3 video-galler-lang-panel d-none" data-lang-panel="ru">
@@ -64,11 +61,8 @@
                             class="form-control @error('title_ru') is-invalid @enderror" required>
                         @error('title_ru') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                    <div class="col-lg-12">
-                        <label class="form-label">Tavsif (RU)</label>
-                        <textarea name="description_ru" rows="3" class="form-control @error('description_ru') is-invalid @enderror">{{ old('description_ru', $videoGaller->description_ru) }}</textarea>
-                        @error('description_ru') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="description_ru" label="Tavsif (RU)" :rows="6" :height="320"
+                        :value="old('description_ru', $videoGaller->description_ru)" />
                 </div>
 
                 <div class="row g-3 video-galler-lang-panel d-none" data-lang-panel="en">
@@ -78,11 +72,8 @@
                             class="form-control @error('title_en') is-invalid @enderror" required>
                         @error('title_en') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
-                    <div class="col-lg-12">
-                        <label class="form-label">Tavsif (EN)</label>
-                        <textarea name="description_en" rows="3" class="form-control @error('description_en') is-invalid @enderror">{{ old('description_en', $videoGaller->description_en) }}</textarea>
-                        @error('description_en') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+                    <x-admin.summernote-field name="description_en" label="Tavsif (EN)" :rows="6" :height="320"
+                        :value="old('description_en', $videoGaller->description_en)" />
                 </div>
 
                 <div class="row g-3 mt-1">
@@ -119,30 +110,6 @@
         </div>
     </div>
 
-    <script>
-        (function() {
-            const tabs = document.querySelectorAll('#video-galler-lang-tabs-edit [data-lang]');
-            const panels = document.querySelectorAll('.video-galler-lang-panel');
-
-            function activateLang(lang) {
-                tabs.forEach((tab) => {
-                    const isActive = tab.dataset.lang === lang;
-                    tab.classList.toggle('active', isActive);
-                    tab.classList.toggle('text-body-tertiary', !isActive);
-                });
-
-                panels.forEach((panel) => {
-                    panel.classList.toggle('d-none', panel.dataset.langPanel !== lang);
-                });
-            }
-
-            tabs.forEach((tab) => {
-                tab.addEventListener('click', function() {
-                    activateLang(this.dataset.lang);
-                });
-            });
-
-            activateLang('uz');
-        })();
-    </script>
+    <x-admin.summernote-lang-tabs-script tabs-selector="#video-galler-lang-tabs-edit [data-lang]"
+        panels-selector=".video-galler-lang-panel" />
 @endsection

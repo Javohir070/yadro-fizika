@@ -2,23 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\Concerns\ResolvesPublicMediaUrl;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListRequest;
-use App\Models\Banner;
+use App\Models\Stat;
 use App\Trait\ApiResponseTrait;
 
-/**
- * Bannerlar ro‘yxati — asosan bosh sahifa slayderlari uchun.
- */
-class BannerApiController extends Controller
+class StatApiController extends Controller
 {
     use ApiResponseTrait;
-    use ResolvesPublicMediaUrl;
 
     /**
-     * Bannerlar ro‘yxati — asosan bosh sahifa slayderlari uchun.
-     *
+     * Statistika bloklari ro'yxati.
      */
     public function index(ApiListRequest $request)
     {
@@ -27,19 +21,22 @@ class BannerApiController extends Controller
         $lang = $this->resolveLang($validated['lang']);
         $perPage = (int) $validated['per_page'];
 
-        $paginator = Banner::query()
+        $paginator = Stat::query()
             ->where('is_active', $status)
-            ->latest()
+            ->orderBy('order')
+            ->orderByDesc('id')
             ->paginate($perPage);
 
-        $paginator->getCollection()->transform(function (Banner $banner) use ($lang) {
+        $paginator->getCollection()->transform(function (Stat $stat) use ($lang) {
             return [
-                'id' => $banner->id,
-                'title' => $banner->{'title_'.$lang},
-                'description' => $banner->{'description_'.$lang},
-                'image' => $this->storagePublicUrl($banner->image),
-                'created_at' => $banner->created_at,
-                'updated_at' => $banner->updated_at,
+                'id' => $stat->id,
+                'title' => $stat->{'title_'.$lang},
+                'value' => $stat->value,
+                'suffix' => $stat->suffix,
+                'display_value' => $stat->value.($stat->suffix ?? ''),
+                'order' => $stat->order,
+                'created_at' => $stat->created_at,
+                'updated_at' => $stat->updated_at,
             ];
         });
 

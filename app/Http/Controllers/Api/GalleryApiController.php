@@ -8,15 +8,14 @@ use App\Http\Requests\ApiListRequest;
 use App\Models\Gallery;
 use App\Trait\ApiResponseTrait;
 
-/**
- * Galereya rasmlari. Modelda til maydonlari yo‘q — `lang` query baribir talab qilinadi
- * (boshqa API bilan bir xil shartnoma uchun).
- */
 class GalleryApiController extends Controller
 {
     use ApiResponseTrait;
     use ResolvesPublicMediaUrl;
 
+    /**
+     * Galereya rasmlari ro‘yxati.
+     */
     public function index(ApiListRequest $request)
     {
         $validated = $request->validated();
@@ -31,7 +30,7 @@ class GalleryApiController extends Controller
         $paginator->getCollection()->transform(function (Gallery $gallery) {
             return [
                 'id' => $gallery->id,
-                'image_url' => $this->storagePublicUrl($gallery->image),
+                'image' => $this->storagePublicUrl($gallery->image),
                 'created_at' => $gallery->created_at,
                 'updated_at' => $gallery->updated_at,
             ];

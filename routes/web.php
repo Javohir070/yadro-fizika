@@ -11,6 +11,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScientificCouncilController;
 use App\Http\Controllers\StructureController;
+use App\Http\Controllers\StatController;
 use App\Http\Controllers\VideoGallerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BannerController;
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('scientific-councils', ScientificCouncilController::class);
         Route::resource('council-members', CouncilMemberController::class);
         Route::resource('video-gallers', VideoGallerController::class);
+        Route::resource('stats', StatController::class);
     });
 });
 

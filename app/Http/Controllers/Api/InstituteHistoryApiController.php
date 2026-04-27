@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiListRequest;
 use App\Http\Requests\InputRequest;
 use App\Models\InstituteHistory;
 use App\Trait\ApiResponseTrait;
 
-/**
- * Institut tarixi. `index` — bitta yozuv; `list` — sahifalangan.
- */
 class InstituteHistoryApiController extends Controller
 {
     use ApiResponseTrait;
 
+    /**
+     * Institut tarixi haqida ma’lumot.
+     */
     public function index(InputRequest $request)
     {
         $validated = $request->validated();
@@ -31,22 +30,6 @@ class InstituteHistoryApiController extends Controller
         }
 
         return $this->successResponse($row);
-    }
-
-    public function list(ApiListRequest $request)
-    {
-        $validated = $request->validated();
-        $status = (bool) (int) $validated['status'];
-        $lang = $this->resolveLang($validated['lang']);
-        $perPage = (int) $validated['per_page'];
-
-        $paginator = InstituteHistory::query()
-            ->selectRaw('id, details_'.$lang.' as content, created_at, updated_at')
-            ->where('is_active', $status)
-            ->latest()
-            ->paginate($perPage);
-
-        return $this->paginatedSuccessResponse($paginator);
     }
 
 

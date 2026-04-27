@@ -7,13 +7,12 @@ use App\Http\Requests\ApiListRequest;
 use App\Models\VideoGaller;
 use App\Trait\ApiResponseTrait;
 
-/**
- * Video galereya. Model nomi tarixan `VideoGaller` — jadval `video_gallers`.
- */
 class VideoGalleryApiController extends Controller
 {
     use ApiResponseTrait;
-
+    /**
+     * Video galereya ma’lumotlari.
+     */
     public function index(ApiListRequest $request)
     {
         $validated = $request->validated();

@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiListRequest;
 use App\Http\Requests\InputRequest;
 use App\Models\InstituteDirector;
 use App\Trait\ApiResponseTrait;
 
-/**
- * Institut direktorlari. `index` — bitta yozuv; `list` — sahifalangan ro‘yxat.
- */
 class InstituteDirectorController extends Controller
 {
     use ApiResponseTrait;
 
+    /**
+     * Institut direktorini haqida ma’lumot.
+     */
     public function index(InputRequest $request)
     {
         $validated = $request->validated();
@@ -22,7 +21,7 @@ class InstituteDirectorController extends Controller
         $lang = $this->resolveLang($validated['lang'] ?? 'uz');
 
         $row = InstituteDirector::query()
-            ->selectRaw('id, details_'.$lang.' as content, created_at, updated_at')
+            ->selectRaw('id, details_' . $lang . ' as content, created_at, updated_at')
             ->where('is_active', $status)
             ->first();
 
@@ -31,22 +30,6 @@ class InstituteDirectorController extends Controller
         }
 
         return $this->successResponse($row);
-    }
-
-    public function list(ApiListRequest $request)
-    {
-        $validated = $request->validated();
-        $status = (bool) (int) $validated['status'];
-        $lang = $this->resolveLang($validated['lang']);
-        $perPage = (int) $validated['per_page'];
-
-        $paginator = InstituteDirector::query()
-            ->selectRaw('id, details_'.$lang.' as content, created_at, updated_at')
-            ->where('is_active', $status)
-            ->latest()
-            ->paginate($perPage);
-
-        return $this->paginatedSuccessResponse($paginator);
     }
 
     private function resolveLang(string $lang): string
