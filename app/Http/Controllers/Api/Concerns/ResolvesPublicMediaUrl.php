@@ -16,6 +16,6 @@ trait ResolvesPublicMediaUrl
             return $path;
         }
 
-        return Storage::url($path);
+        return Storage::disk('public')->url(ltrim($path, '/'));
     }
 }
