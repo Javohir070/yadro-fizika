@@ -25,7 +25,7 @@ class CouncilMemberRequest extends FormRequest
         return [
             'scientific_council_id' => 'required|integer|exists:scientific_councils,id',
             // 'status' => 'required|in:1,0',
-            'lang' => 'required|in:uz,ru,en',
+            'lang' => 'sometimes|in:uz,ru,en',
             'page' => 'sometimes|integer|min:1',
             'per_page' => 'sometimes|integer|min:1|max:50',
         ];
@@ -33,6 +33,9 @@ class CouncilMemberRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        if (! $this->has('lang')) {
+            $this->merge(['lang' => 'uz']);
+        }
         if (! $this->has('page')) {
             $this->merge(['page' => 1]);
         }

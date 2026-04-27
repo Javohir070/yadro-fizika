@@ -24,7 +24,7 @@ class LeadershipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lang' => 'required|in:uz,ru,en',
+            'lang' => 'sometimes|in:uz,ru,en',
             'page' => 'sometimes|integer|min:1',
             'per_page' => 'sometimes|integer|min:1|max:50',
             'type' => 'sometimes|in:'.implode(',', array_column(DepartmentType::cases(), 'value')),
@@ -33,6 +33,9 @@ class LeadershipRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        if (! $this->has('lang')) {
+            $this->merge(['lang' => 'uz']);
+        }
         if (! $this->has('page')) {
             $this->merge(['page' => 1]);
         }

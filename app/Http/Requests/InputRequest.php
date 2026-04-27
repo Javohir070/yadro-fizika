@@ -27,8 +27,19 @@ class InputRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|in:1,0',
-            'lang' => 'required|in:uz,ru,en',
+            'status' => 'sometimes|in:1,0',
+            'lang' => 'sometimes|in:uz,ru,en',
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if (! $this->has('status')) {
+            $this->merge(['status' => 1]);
+        }
+
+        if (! $this->has('lang')) {
+            $this->merge(['lang' => 'uz']);
+        }
     }
 }
