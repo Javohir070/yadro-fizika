@@ -9,10 +9,13 @@
  * - page, per_page (faqat sahifalangan ro‘yxatlar): standart 1 va 15, per_page maks. 50.
  *
  * Bir nechta resursda `index` bitta yozuv (first), `.../list` yoki ko‘plik nomi sahifalangan ro‘yxat.
+ * Bitta yozuv: `news/{id}`, `ads/{id}`, `conferences/{id}` — `InputRequest` (lang, status).
  */
 
 use App\Http\Controllers\Api\AboutApiController;
+use App\Http\Controllers\Api\AdApiController;
 use App\Http\Controllers\Api\BannerApiController;
+use App\Http\Controllers\Api\ConferenceApiController;
 use App\Http\Controllers\Api\CouncilMemberApiController;
 use App\Http\Controllers\Api\DepartmentApiController;
 use App\Http\Controllers\Api\DoctoralApiController;
@@ -24,8 +27,8 @@ use App\Http\Controllers\Api\LeadershipApiController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PartnerApiController;
 use App\Http\Controllers\Api\ScientificCouncilApiController;
-use App\Http\Controllers\Api\StructureApiController;
 use App\Http\Controllers\Api\StatApiController;
+use App\Http\Controllers\Api\StructureApiController;
 use App\Http\Controllers\Api\VideoGalleryApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +53,10 @@ Route::get('structures', [StructureApiController::class, 'list']);
 Route::get('news', [NewsApiController::class, 'index']);
 Route::get('news/{id}', [NewsApiController::class, 'show']);
 Route::get('banners', [BannerApiController::class, 'index']);
+Route::get('ads', [AdApiController::class, 'index']);
+Route::get('ads/{id}', [AdApiController::class, 'show']);
+Route::get('conferences', [ConferenceApiController::class, 'index']);
+Route::get('conferences/{id}', [ConferenceApiController::class, 'show']);
 Route::get('galleries', [GalleryApiController::class, 'index']);
 Route::get('video-gallery', [VideoGalleryApiController::class, 'index']);
 Route::get('partners', [PartnerApiController::class, 'index']);

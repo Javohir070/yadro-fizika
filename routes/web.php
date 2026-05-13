@@ -1,25 +1,27 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\CouncilMemberController;
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\LeadershipController;
-use App\Http\Controllers\NewsController;
-use App\Http\Controllers\PartnerController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ScientificCouncilController;
-use App\Http\Controllers\StructureController;
-use App\Http\Controllers\StatController;
-use App\Http\Controllers\VideoGallerController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DoctoralController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InstituteDirectorController;
 use App\Http\Controllers\InstituteHistoryController;
 use App\Http\Controllers\InstituteStructureController;
+use App\Http\Controllers\LeadershipController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScientificCouncilController;
+use App\Http\Controllers\StatController;
+use App\Http\Controllers\StructureController;
+use App\Http\Controllers\VideoGallerController;
+use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -36,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('banners', BannerController::class);
+        Route::resource('ads', AdController::class);
+        Route::resource('conferences', ConferenceController::class);
         Route::resource('abouts', AboutController::class);
         Route::resource('institute-histories', InstituteHistoryController::class);
         Route::resource('institute-directors', InstituteDirectorController::class);

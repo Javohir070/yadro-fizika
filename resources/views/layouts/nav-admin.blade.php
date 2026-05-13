@@ -32,6 +32,38 @@
 
 <li class="nav-item">
     <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/ads*') ? 'active' : '' }}"
+            href="{{ route('admin.ads.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="sidebar" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">E'lonlar</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+
+<li class="nav-item">
+    <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/conferences*') ? 'active' : '' }}"
+            href="{{ route('admin.conferences.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="calendar" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Konferensiyalar</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+
+<li class="nav-item">
+    <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/abouts*') ? 'active' : '' }}"
             href="{{ route('admin.abouts.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
             <div class="d-flex align-items-center">
