@@ -12,6 +12,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InstituteDirectorController;
 use App\Http\Controllers\InstituteHistoryController;
+use App\Http\Controllers\InternationalCollaborationController;
+use App\Http\Controllers\LaboratoryController;
+use App\Http\Controllers\LaboratoryTeamController;
+use App\Http\Controllers\ScientificActivityController;
 use App\Http\Controllers\InstituteStructureController;
 use App\Http\Controllers\LeadershipController;
 use App\Http\Controllers\NewsController;
@@ -21,6 +25,7 @@ use App\Http\Controllers\ScientificCouncilController;
 use App\Http\Controllers\StatController;
 use App\Http\Controllers\StructureController;
 use App\Http\Controllers\VideoGallerController;
+use App\Http\Controllers\WorkActivityController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -42,6 +47,17 @@ Route::middleware('auth')->group(function () {
         Route::resource('conferences', ConferenceController::class);
         Route::resource('abouts', AboutController::class);
         Route::resource('institute-histories', InstituteHistoryController::class);
+        Route::resource('laboratories', LaboratoryController::class);
+
+        Route::prefix('laboratories/{laboratory}')->name('laboratories.')->group(function () {
+            Route::resource('teams', LaboratoryTeamController::class)->except(['index']);
+
+            Route::resource('teams.work-activities', WorkActivityController::class)->except(['index']);
+            Route::post('scientific-activities', [ScientificActivityController::class, 'store'])->name('scientific-activities.store');
+            Route::put('scientific-activities/{scientific_activity}', [ScientificActivityController::class, 'update'])->name('scientific-activities.update');
+            Route::post('international-collaborations', [InternationalCollaborationController::class, 'store'])->name('international-collaborations.store');
+            Route::put('international-collaborations/{international_collaboration}', [InternationalCollaborationController::class, 'update'])->name('international-collaborations.update');
+        });
         Route::resource('institute-directors', InstituteDirectorController::class);
         Route::resource('institute-structures', InstituteStructureController::class);
         Route::resource('departments', DepartmentController::class);

@@ -144,6 +144,22 @@
 
 <li class="nav-item">
     <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/laboratories*') ? 'active' : '' }}"
+            href="{{ route('admin.laboratories.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="cpu" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Laboratoriyalar</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+
+<li class="nav-item">
+    <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/departments*') ? 'active' : '' }}"
             href="{{ route('admin.departments.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
             <div class="d-flex align-items-center">

@@ -11,6 +11,7 @@ use App\Models\Gallery;
 use App\Models\Image;
 use App\Models\InstituteDirector;
 use App\Models\InstituteHistory;
+use App\Models\Laboratory;
 use App\Models\InstituteStructure;
 use App\Models\Leadership;
 use App\Models\News;
@@ -31,6 +32,7 @@ class HomeController extends Controller
             ['label' => 'Institut tarixi', 'model' => InstituteHistory::class, 'route' => 'admin.institute-histories.index'],
             ['label' => 'Institut direktori', 'model' => InstituteDirector::class, 'route' => 'admin.institute-directors.index'],
             ['label' => 'Institut tuzilmasi', 'model' => InstituteStructure::class, 'route' => 'admin.institute-structures.index'],
+            ['label' => 'Laboratoriyalar', 'model' => Laboratory::class, 'route' => 'admin.laboratories.index'],
             ['label' => "Bo'limlar", 'model' => Department::class, 'route' => 'admin.departments.index'],
             ['label' => 'Rahbariyat', 'model' => Leadership::class, 'route' => 'admin.leaderships.index'],
             ['label' => 'Yangiliklar', 'model' => News::class, 'route' => 'admin.news.index'],
