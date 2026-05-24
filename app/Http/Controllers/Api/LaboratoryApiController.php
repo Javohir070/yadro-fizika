@@ -12,9 +12,6 @@ class LaboratoryApiController extends Controller
 {
     use ApiResponseTrait;
 
-    /**
-     * Laboratoriyalar ro'yxati.
-     */
     public function index(ApiListRequest $request)
     {
         $validated = $request->validated();
@@ -23,45 +20,56 @@ class LaboratoryApiController extends Controller
         $perPage = (int) $validated['per_page'];
 
         $paginator = Laboratory::query()
+            ->select([
+                'id',
+                "name_{$lang}",
+                'order',
+                'is_active',
+                'created_at',
+                'updated_at',
+            ])
             ->where('is_active', $status)
             ->orderBy('order')
             ->orderByDesc('id')
             ->paginate($perPage);
 
-        $paginator->getCollection()->transform(fn (Laboratory $row) => $this->transformLaboratory($row, $lang));
+        $paginator->getCollection()->transform(
+            fn (Laboratory $laboratory) => $this->transformLaboratoryList($laboratory, $lang)
+        );
 
         return $this->paginatedSuccessResponse($paginator);
     }
 
-    /**
-     * Laboratoriya id bo'yicha asosiy ma'lumot (name + content).
-     */
     public function show(int $id, InputRequest $request)
     {
-        $validated = $request->validated();
-        $status = (bool) (int) $validated['status'];
-        $lang = $this->resolveLang($validated['lang']);
+        $lang = $this->resolveLang($request->validated()['lang']);
 
-        $laboratory = Laboratory::query()
-            ->selectRaw('id, name_'.$lang.' as name, details_'.$lang.' as content, `order`, created_at, updated_at')
-            ->where('is_active', $status)
-            ->find($id);
+        $laboratory = Laboratory::query()->find($id);
 
         if ($laboratory === null) {
             return $this->notFoundResponse('Laboratoriya ma\'lumotlari topilmadi', 404);
         }
 
-        return $this->successResponse($laboratory);
+        return $this->successResponse($this->transformLaboratoryDetail($laboratory, $lang));
     }
 
-    private function transformLaboratory(Laboratory $row, string $lang): array
+    private function transformLaboratoryList(Laboratory $laboratory, string $lang): array
     {
         return [
-            'id' => $row->id,
-            'name' => $row->{'name_'.$lang},
-            'order' => $row->order,
-            'created_at' => $row->created_at,
-            'updated_at' => $row->updated_at,
+            'id' => $laboratory->id,
+            'name' => $laboratory->{'name_'.$lang},
+            'order' => $laboratory->order,
+            'is_active' => $laboratory->is_active,
+            'created_at' => $laboratory->created_at,
+            'updated_at' => $laboratory->updated_at,
+        ];
+    }
+
+    private function transformLaboratoryDetail(Laboratory $laboratory, string $lang): array
+    {
+        return [
+            ...$this->transformLaboratoryList($laboratory, $lang),
+            'content' => $laboratory->{'details_'.$lang},
         ];
     }
 
