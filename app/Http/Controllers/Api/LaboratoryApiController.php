@@ -50,10 +50,21 @@ class LaboratoryApiController extends Controller
             return $this->notFoundResponse('Laboratoriya ma\'lumotlari topilmadi', 404);
         }
 
-        return $this->successResponse($this->transformLaboratory($laboratory, $lang));
+        return $this->successResponse($this->transformLaboratoryShow($laboratory, $lang));
     }
 
     private function transformLaboratory(Laboratory $row, string $lang): array
+    {
+        return [
+            'id' => $row->id,
+            'name' => $row->{'name_'.$lang},
+            'order' => $row->order,
+            'created_at' => $row->created_at,
+            'updated_at' => $row->updated_at,
+        ];
+    }
+
+    private function transformLaboratoryShow(Laboratory $row, string $lang): array
     {
         return [
             'id' => $row->id,
