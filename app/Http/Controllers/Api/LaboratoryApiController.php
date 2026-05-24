@@ -14,6 +14,9 @@ class LaboratoryApiController extends Controller
     use ApiResponseTrait;
     use ResolvesPublicMediaUrl;
 
+    /**
+     * Laboratoriyalar ro'yxati.
+     */
     public function index(ApiListRequest $request)
     {
         $validated = $request->validated();
@@ -42,6 +45,9 @@ class LaboratoryApiController extends Controller
         return $this->paginatedSuccessResponse($paginator);
     }
 
+    /**
+     * Laboratoriya id bo'yicha asosiy ma'lumot.
+     */
     public function show(int $id, InputRequest $request)
     {
         $validated = $request->validated();

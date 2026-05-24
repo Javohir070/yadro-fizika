@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Concerns\ResolvesPublicMediaUrl;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InputRequest;
 use App\Http\Requests\LaboratoryRelatedListRequest;
+use App\Http\Requests\LaboratoryTeamListRequest;
 use App\Models\LaboratoryTeam;
 use App\Trait\ApiResponseTrait;
 
@@ -38,6 +39,33 @@ class LaboratoryTeamApiController extends Controller
         return $this->paginatedSuccessResponse($paginator);
     }
 
+    /**
+     * Jamoa a'zolari ro'yxati (laboratory_id ixtiyoriy, pagination bilan).
+     */
+    public function list(LaboratoryTeamListRequest $request)
+    {
+        $validated = $request->validated();
+        $status = (bool) (int) $validated['status'];
+        $lang = $this->resolveLang($validated['lang']);
+        $perPage = (int) $validated['per_page'];
+
+        $paginator = LaboratoryTeam::query()
+            ->when(isset($validated['laboratory_id']), fn ($query) => $query->where('laboratory_id', (int) $validated['laboratory_id']))
+            ->where('is_active', $status)
+            ->orderBy('order')
+            ->latest('id')
+            ->paginate($perPage);
+
+        $paginator->getCollection()->transform(
+            fn (LaboratoryTeam $row) => $this->transform($row, $lang)
+        );
+
+        return $this->paginatedSuccessResponse($paginator);
+    }
+
+    /**
+     * Laboratoriya jamoasi id bo'yicha asosiy ma'lumot.
+     */
     public function show(int $id, InputRequest $request)
     {
         $validated = $request->validated();
