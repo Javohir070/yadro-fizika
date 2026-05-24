@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InputRequest;
-use App\Http\Requests\LaboratoryRelatedListRequest;
+use App\Http\Requests\LaboratoryRelatedInputRequest;
 use App\Http\Requests\WorkActivityListRequest;
 use App\Models\WorkActivity;
 use App\Trait\ApiResponseTrait;
@@ -15,23 +15,25 @@ class WorkActivityApiController extends Controller
     use ApiResponseTrait;
 
     /**
-     * Laboratoriya bo'yicha mehnat faoliyatlari (laboratory_id majburiy).
+     * Laboratoriya bo'yicha bitta mehnat faoliyati yozuvi.
      */
-    public function index(LaboratoryRelatedListRequest $request)
+    public function index(WorkActivityListRequest $request)
     {
         $validated = $request->validated();
         $lang = $this->resolveLang($validated['lang']);
-        $perPage = (int) $validated['per_page'];
         $activeOnly = (int) $validated['status'] === 1;
+        $laboratoryTeamId = (int) $validated['laboratory_team_id'];
 
-        $paginator = $this->buildQuery($validated, $activeOnly)
-            ->paginate($perPage);
+        $row = WorkActivity::query()
+            ->where('is_active', $activeOnly)
+            ->where('laboratory_team_id', $laboratoryTeamId)
+            ->first();
 
-        $paginator->getCollection()->transform(
-            fn (WorkActivity $row) => $this->transform($row, $lang)
-        );
+        if ($row === null) {
+            return $this->notFoundResponse('Mehnat faoliyati ma\'lumotlari topilmadi', 404);
+        }
 
-        return $this->paginatedSuccessResponse($paginator);
+        return $this->successResponse($this->transform($row, $lang));
     }
 
     /**
@@ -92,9 +94,8 @@ class WorkActivityApiController extends Controller
     {
         return [
             'id' => $row->id,
-            'laboratory_id' => $row->laboratoryTeam?->laboratory_id,
             'laboratory_team_id' => $row->laboratory_team_id,
-            'content' => $row->{'details_'.$lang},
+            'details' => $row->{'details_'.$lang},
             'is_active' => $row->is_active,
             'created_at' => $row->created_at,
             'updated_at' => $row->updated_at,
