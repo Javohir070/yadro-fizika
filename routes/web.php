@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CharterController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\CouncilMemberController;
 use App\Http\Controllers\DepartmentController;
@@ -47,6 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('conferences', ConferenceController::class);
         Route::resource('abouts', AboutController::class);
         Route::resource('institute-histories', InstituteHistoryController::class);
+        Route::resource('charters', CharterController::class);
         Route::resource('laboratories', LaboratoryController::class);
 
         Route::prefix('laboratories/{laboratory}')->name('laboratories.')->group(function () {

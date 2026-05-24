@@ -25,7 +25,7 @@ class CouncilMemberApiController extends Controller
 
         $paginator = CouncilMember::query()
             ->with('scientificCouncil')
-            ->where('scientific_council_id', (int) $validated['scientific_council_id'])
+            // ->where('scientific_council_id', (int) $validated['scientific_council_id'])
             ->where('is_active', 1)
             ->orderBy('order')
             ->orderByDesc('id')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use App\Models\Banner;
+use App\Models\Charter;
 use App\Models\CouncilMember;
 use App\Models\Department;
 use App\Models\Doctoral;
@@ -30,6 +31,7 @@ class HomeController extends Controller
             ['label' => 'Bannerlar', 'model' => Banner::class, 'route' => 'admin.banners.index'],
             ['label' => 'About', 'model' => About::class, 'route' => 'admin.abouts.index'],
             ['label' => 'Institut tarixi', 'model' => InstituteHistory::class, 'route' => 'admin.institute-histories.index'],
+            ['label' => 'Institut nizomi', 'model' => Charter::class, 'route' => 'admin.charters.index'],
             ['label' => 'Institut direktori', 'model' => InstituteDirector::class, 'route' => 'admin.institute-directors.index'],
             ['label' => 'Institut tuzilmasi', 'model' => InstituteStructure::class, 'route' => 'admin.institute-structures.index'],
             ['label' => 'Laboratoriyalar', 'model' => Laboratory::class, 'route' => 'admin.laboratories.index'],

@@ -23,7 +23,7 @@ class CouncilMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'scientific_council_id' => 'required|integer|exists:scientific_councils,id',
+            // 'scientific_council_id' => 'required|integer|exists:scientific_councils,id',
             // 'status' => 'required|in:1,0',
             'lang' => 'sometimes|in:uz,ru,en',
             'page' => 'sometimes|integer|min:1',

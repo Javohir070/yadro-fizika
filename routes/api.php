@@ -15,6 +15,7 @@
 use App\Http\Controllers\Api\AboutApiController;
 use App\Http\Controllers\Api\AdApiController;
 use App\Http\Controllers\Api\BannerApiController;
+use App\Http\Controllers\Api\CharterApiController;
 use App\Http\Controllers\Api\ConferenceApiController;
 use App\Http\Controllers\Api\CouncilMemberApiController;
 use App\Http\Controllers\Api\DepartmentApiController;
@@ -23,13 +24,17 @@ use App\Http\Controllers\Api\GalleryApiController;
 use App\Http\Controllers\Api\InstituteDirectorController;
 use App\Http\Controllers\Api\InstituteHistoryApiController;
 use App\Http\Controllers\Api\InstituteStructureApiController;
+use App\Http\Controllers\Api\InternationalCollaborationApiController;
+use App\Http\Controllers\Api\LaboratoryApiController;
 use App\Http\Controllers\Api\LeadershipApiController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PartnerApiController;
+use App\Http\Controllers\Api\ScientificActivityApiController;
 use App\Http\Controllers\Api\ScientificCouncilApiController;
 use App\Http\Controllers\Api\StatApiController;
 use App\Http\Controllers\Api\StructureApiController;
 use App\Http\Controllers\Api\VideoGalleryApiController;
+use App\Http\Controllers\Api\WorkActivityApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +47,8 @@ Route::get('about', [AboutApiController::class, 'index']);
 Route::get('institute-director', [InstituteDirectorController::class, 'index']);
 
 Route::get('institute-history', [InstituteHistoryApiController::class, 'index']);
+
+Route::get('charter', [CharterApiController::class, 'index']);
 
 Route::get('institute-structure', [InstituteStructureApiController::class, 'index']);
 
@@ -62,6 +69,14 @@ Route::get('video-gallery', [VideoGalleryApiController::class, 'index']);
 Route::get('partners', [PartnerApiController::class, 'index']);
 Route::get('leadership', [LeadershipApiController::class, 'index']);
 Route::get('departments', [DepartmentApiController::class, 'index']);
+Route::get('laboratories', [LaboratoryApiController::class, 'index']);
+Route::get('laboratories/{id}', [LaboratoryApiController::class, 'show']);
+Route::get('work-activities', [WorkActivityApiController::class, 'index']);
+Route::get('work-activities/{id}', [WorkActivityApiController::class, 'show']);
+Route::get('scientific-activities', [ScientificActivityApiController::class, 'index']);
+Route::get('scientific-activities/{id}', [ScientificActivityApiController::class, 'show']);
+Route::get('international-collaborations', [InternationalCollaborationApiController::class, 'index']);
+Route::get('international-collaborations/{id}', [InternationalCollaborationApiController::class, 'show']);
 Route::get('doctorals', [DoctoralApiController::class, 'index']);
 Route::get('council-members', [CouncilMemberApiController::class, 'index']);
 Route::get('stats', [StatApiController::class, 'index']);
