@@ -34,15 +34,16 @@ class LaboratoryApiController extends Controller
     }
 
     /**
-     * Laboratoriya id bo'yicha asosiy ma'lumot.
+     * Laboratoriya id bo'yicha asosiy ma'lumot (name + content).
      */
     public function show(int $id, InputRequest $request)
     {
         $validated = $request->validated();
-        $status = (bool) (int) ($validated['status'] ?? 1);
-        $lang = $this->resolveLang($validated['lang'] ?? 'uz');
+        $status = (bool) (int) $validated['status'];
+        $lang = $this->resolveLang($validated['lang']);
 
         $laboratory = Laboratory::query()
+            ->selectRaw('id, name_'.$lang.' as name, details_'.$lang.' as content, `order`, created_at, updated_at')
             ->where('is_active', $status)
             ->find($id);
 
@@ -50,7 +51,7 @@ class LaboratoryApiController extends Controller
             return $this->notFoundResponse('Laboratoriya ma\'lumotlari topilmadi', 404);
         }
 
-        return $this->successResponse($this->transformLaboratoryShow($laboratory, $lang));
+        return $this->successResponse($laboratory);
     }
 
     private function transformLaboratory(Laboratory $row, string $lang): array
@@ -58,18 +59,6 @@ class LaboratoryApiController extends Controller
         return [
             'id' => $row->id,
             'name' => $row->{'name_'.$lang},
-            'order' => $row->order,
-            'created_at' => $row->created_at,
-            'updated_at' => $row->updated_at,
-        ];
-    }
-
-    private function transformLaboratoryShow(Laboratory $row, string $lang): array
-    {
-        return [
-            'id' => $row->id,
-            'name' => $row->{'name_'.$lang},
-            'details' => $row->{'details_'.$lang},
             'order' => $row->order,
             'created_at' => $row->created_at,
             'updated_at' => $row->updated_at,
