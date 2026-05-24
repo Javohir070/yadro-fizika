@@ -25,6 +25,7 @@ class StoreLeadershipRequest extends FormRequest
             'email' => ['nullable', 'email', 'max:255'],
             'photo' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'is_active' => ['required', 'boolean'],
+            'order' => ['required', 'integer', 'min:0'],
         ];
     }
 }

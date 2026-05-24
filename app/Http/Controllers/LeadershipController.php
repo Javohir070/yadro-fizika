@@ -16,7 +16,8 @@ class LeadershipController extends Controller
     {
         $leaderships = Leadership::query()
             ->with('department')
-            ->latest()
+            ->orderBy('order')
+            ->orderByDesc('id')
             ->paginate(10);
 
         return view('admin.leadership.index', compact('leaderships'));

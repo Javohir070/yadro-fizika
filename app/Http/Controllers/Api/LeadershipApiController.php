@@ -29,7 +29,8 @@ class LeadershipApiController extends Controller
             ->whereHas('department', function ($query) use ($type) {
                 $query->where('type', $type);
             })
-            ->latest()
+            ->orderBy('order')
+            ->orderByDesc('id')
             ->paginate($perPage);
         
         if ($paginator->isEmpty()) {
@@ -49,6 +50,7 @@ class LeadershipApiController extends Controller
                 'phone' => $row->phone,
                 'email' => $row->email,
                 'photo' => $this->storagePublicUrl($row->photo),
+                'order' => $row->order,
                 'created_at' => $row->created_at,
                 'updated_at' => $row->updated_at,
             ];

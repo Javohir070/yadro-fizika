@@ -18,10 +18,12 @@ class Leadership extends Model
         'email',
         'photo',
         'is_active',
+        'order',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'order' => 'integer',
     ];
 
     public function department()

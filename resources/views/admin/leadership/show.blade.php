@@ -90,6 +90,12 @@
                         </button>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="p-3 rounded border">
+                        <div class="text-body-tertiary fs-9 mb-1">Tartib</div>
+                        <div><span class="badge bg-secondary">{{ $leadership->order }}</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -21,6 +21,7 @@
                     <thead>
                         <tr>
                             <th style="width: 50px;">#</th>
+                            <th>Tartib</th>
                             <th>F.I.SH (UZ)</th>
                             <th>Bo'lim</th>
                             <th>Rasm</th>
@@ -32,6 +33,7 @@
                         @forelse ($leaderships as $leadership)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
+                                <td><span class="badge bg-secondary">{{ $leadership->order }}</span></td>
                                 <td>{{ $leadership->full_name_uz }}</td>
                                 <td>{{ $leadership->department?->name_uz }}</td>
                                 <td>
@@ -73,7 +75,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-5">
+                                <td colspan="7" class="text-center py-5">
                                     <a href="{{ route('admin.leaderships.create') }}" class="btn btn-primary btn-sm">Birinchi ma'lumotni qo'shish</a>
                                 </td>
                             </tr>
