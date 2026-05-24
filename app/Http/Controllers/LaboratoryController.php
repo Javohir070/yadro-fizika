@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ImageableType;
+use App\Http\Controllers\Concerns\HandlesModelImages;
 use App\Http\Requests\StoreLaboratoryRequest;
 use App\Http\Requests\UpdateLaboratoryRequest;
 use App\Models\Laboratory;
@@ -11,6 +13,8 @@ use Illuminate\View\View;
 
 class LaboratoryController extends Controller
 {
+    use HandlesModelImages;
+
     private const TABS = ['about', 'team', 'scientific', 'international'];
 
     public function index(): View
@@ -47,6 +51,7 @@ class LaboratoryController extends Controller
         }
 
         $laboratory->load([
+            'images',
             'teams' => fn ($q) => $q->orderBy('order'),
             'scientificActivity',
             'internationalCollaboration',
@@ -57,7 +62,11 @@ class LaboratoryController extends Controller
 
     public function update(UpdateLaboratoryRequest $request, Laboratory $laboratory): RedirectResponse
     {
-        $laboratory->update($request->validated());
+        $data = $request->validated();
+        unset($data['images']);
+
+        $laboratory->update($data);
+        $this->storeUploadedImages($laboratory, $request, ImageableType::Laboratory);
 
         return redirect()
             ->route('admin.laboratories.edit', ['laboratory' => $laboratory, 'tab' => 'about'])
@@ -66,6 +75,8 @@ class LaboratoryController extends Controller
 
     public function destroy(Laboratory $laboratory): RedirectResponse
     {
+        $laboratory->load('images');
+        $this->deleteModelImages($laboratory);
         $laboratory->delete();
 
         return redirect()

@@ -79,7 +79,6 @@ Route::get('work-activities/{id}', [WorkActivityApiController::class, 'show']);
 Route::get('scientific-activities', [ScientificActivityApiController::class, 'index']);
 Route::get('scientific-activities/{id}', [ScientificActivityApiController::class, 'show']);
 Route::get('international-collaborations', [InternationalCollaborationApiController::class, 'index']);
-Route::get('international-collaborations/{id}', [InternationalCollaborationApiController::class, 'show']);
 Route::get('doctorals', [DoctoralApiController::class, 'index']);
 Route::get('council-members', [CouncilMemberApiController::class, 'index']);
 Route::get('stats', [StatApiController::class, 'index']);

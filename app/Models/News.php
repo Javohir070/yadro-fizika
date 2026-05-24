@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\HasImages;
 use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
+    use HasImages;
     protected $fillable = [
         'title_uz',
         'title_ru',
@@ -24,10 +25,5 @@ class News extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', 1);
-    }
-
-    public function images(): HasMany
-    {
-        return $this->hasMany(Image::class);
     }
 }

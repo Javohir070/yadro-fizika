@@ -25,8 +25,8 @@
 
                 <div class="col-md-6">
                     <div class="p-3 rounded border">
-                        <div class="text-body-tertiary fs-9 mb-1">Yangilik</div>
-                        <div class="fw-semibold">{{ $image->news?->title_uz }}</div>
+                        <div class="text-body-tertiary fs-9 mb-1">Bog'langan yozuv</div>
+                        <div class="fw-semibold">{{ $image->parentTypeLabel() }}: {{ $image->parentLabel() }}</div>
                     </div>
                 </div>
                 <div class="col-md-6">

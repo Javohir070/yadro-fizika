@@ -93,7 +93,7 @@
                         <form action="{{ route('admin.images.store') }}" method="POST" enctype="multipart/form-data"
                             class="row g-3">
                             @csrf
-                            <input type="hidden" name="news_id" value="{{ $news->id }}">
+                            <input type="hidden" name="imageable_ref" value="news:{{ $news->id }}">
                             <input type="hidden" name="is_active" value="1">
                             <div class="col-md-10">
                                 <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"

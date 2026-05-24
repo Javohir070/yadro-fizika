@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Concerns\ResolvesPublicMediaUrl;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListRequest;
 use App\Http\Requests\InputRequest;
@@ -11,6 +12,7 @@ use App\Trait\ApiResponseTrait;
 class LaboratoryApiController extends Controller
 {
     use ApiResponseTrait;
+    use ResolvesPublicMediaUrl;
 
     public function index(ApiListRequest $request)
     {
@@ -42,9 +44,13 @@ class LaboratoryApiController extends Controller
 
     public function show(int $id, InputRequest $request)
     {
-        $lang = $this->resolveLang($request->validated()['lang']);
+        $validated = $request->validated();
+        $status = (bool) (int) $validated['status'];
+        $lang = $this->resolveLang($validated['lang']);
 
-        $laboratory = Laboratory::query()->find($id);
+        $laboratory = Laboratory::query()
+            ->with(['images' => fn ($q) => $q->where('is_active', $status)])
+            ->find($id);
 
         if ($laboratory === null) {
             return $this->notFoundResponse('Laboratoriya ma\'lumotlari topilmadi', 404);
@@ -70,6 +76,10 @@ class LaboratoryApiController extends Controller
         return [
             ...$this->transformLaboratoryList($laboratory, $lang),
             'content' => $laboratory->{'details_'.$lang},
+            'images' => $laboratory->images->map(fn ($image) => [
+                'id' => $image->id,
+                'url' => $this->storagePublicUrl($image->image),
+            ])->values()->all(),
         ];
     }
 

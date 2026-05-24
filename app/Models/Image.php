@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Enums\ImageableType;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Image extends Model
 {
     protected $fillable = [
-        'news_id',
+        'imageable_type',
+        'imageable_id',
         'image',
         'is_active',
     ];
@@ -17,9 +19,29 @@ class Image extends Model
         'is_active' => 'boolean',
     ];
 
-    public function news(): BelongsTo
+    public function imageable(): MorphTo
     {
-        return $this->belongsTo(News::class);
+        return $this->morphTo();
+    }
+
+    public function parentLabel(): ?string
+    {
+        $parent = $this->imageable;
+
+        if ($parent === null) {
+            return null;
+        }
+
+        return match ($this->imageable_type) {
+            \App\Models\News::class => $parent->title_uz ?? null,
+            \App\Models\Laboratory::class => $parent->name_uz ?? null,
+            default => null,
+        };
+    }
+
+    public function parentTypeLabel(): ?string
+    {
+        return ImageableType::fromModelClass($this->imageable_type)?->label();
     }
 
     public function scopeActive($query)

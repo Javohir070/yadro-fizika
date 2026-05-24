@@ -21,7 +21,7 @@
                         <tr>
                             <th style="width: 50px;">#</th>
                             <th>Rasm</th>
-                            <th>Yangilik</th>
+                            <th>Bog'langan yozuv</th>
                             <th>Holati</th>
                             <th class="text-end pe-8">Amallar</th>
                         </tr>
@@ -34,7 +34,7 @@
                                     <img src="{{ asset('storage/' . $image->image) }}" alt="Image"
                                         style="width: 80px; height: 55px; object-fit: cover;" class="rounded border">
                                 </td>
-                                <td>{{ $image->news?->title_uz }}</td>
+                                <td>{{ $image->parentTypeLabel() }}: {{ $image->parentLabel() }}</td>
                                 <td>
                                     <button type="button"
                                         class="btn btn-sm rounded-pill {{ $image->is_active ? 'btn-success' : 'btn-secondary' }}"

@@ -3,7 +3,7 @@
     <p class="text-body-tertiary mb-0 fs-9">Nomi, tarixi va asosiy sozlamalar</p>
 </div>
 
-<form action="{{ route('admin.laboratories.update', $laboratory) }}" method="POST">
+<form action="{{ route('admin.laboratories.update', $laboratory) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -59,6 +59,7 @@
     </div>
 
     <div class="row g-3 mt-1">
+        @include('admin.components.image-upload-fields', ['model' => $laboratory])
         <div class="col-md-6">
             <label class="form-label">Tartib *</label>
             <input type="number" min="0" name="order" value="{{ old('order', $laboratory->order) }}"
