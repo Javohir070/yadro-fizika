@@ -12,6 +12,7 @@ class LaboratoryTeam extends Model
 {
     protected $fillable = [
         'laboratory_id',
+        'type',
         'full_name_uz',
         'full_name_ru',
         'full_name_en',
@@ -32,9 +33,15 @@ class LaboratoryTeam extends Model
     ];
 
     protected $casts = [
+        'type' => 'integer',
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    public function isLaboratoryDirector(): bool
+    {
+        return (int) $this->type === 1;
+    }
 
     public function laboratory(): BelongsTo
     {

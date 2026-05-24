@@ -72,6 +72,7 @@ Route::get('leadership', [LeadershipApiController::class, 'index']);
 Route::get('departments', [DepartmentApiController::class, 'index']);
 Route::get('laboratories', [LaboratoryApiController::class, 'index']);
 Route::get('laboratories/{id}', [LaboratoryApiController::class, 'show']);
+Route::get('laboratory-director', [LaboratoryTeamApiController::class, 'director']);
 Route::get('laboratory-teams/list', [LaboratoryTeamApiController::class, 'list']);
 Route::get('laboratory-teams', [LaboratoryTeamApiController::class, 'index']);
 Route::get('laboratory-teams/{id}', [LaboratoryTeamApiController::class, 'show']);

@@ -47,6 +47,16 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="p-3 rounded border">
+                                    <div class="text-body-tertiary fs-9 mb-1">Laboratoriya mudiri</div>
+                                    <button type="button"
+                                        class="btn btn-sm rounded-pill {{ $team->isLaboratoryDirector() ? 'btn-primary' : 'btn-secondary' }}"
+                                        disabled>
+                                        {{ $team->isLaboratoryDirector() ? 'Ha' : 'Yo\'q' }}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 rounded border">
                                     <div class="text-body-tertiary fs-9 mb-1">Holati</div>
                                     <button type="button"
                                         class="btn btn-sm rounded-pill {{ $team->is_active ? 'btn-success' : 'btn-secondary' }}"

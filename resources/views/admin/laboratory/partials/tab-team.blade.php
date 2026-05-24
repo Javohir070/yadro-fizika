@@ -19,6 +19,7 @@
                     <th style="width: 72px;">Rasm</th>
                     <th>F.I.Sh (UZ)</th>
                     <th>Lavozim (UZ)</th>
+                    <th style="width: 120px;">Mudir</th>
                     <th style="width: 80px;">Tartib</th>
                     <th style="width: 100px;">Holati</th>
                     <th class="text-end pe-4" style="width: 140px;">Amallar</th>
@@ -41,6 +42,11 @@
                         </td>
                         <td class="fw-semibold text-nowrap">{{ $member->full_name_uz }}</td>
                         <td class="text-body-secondary">{{ \Illuminate\Support\Str::limit($member->position_uz, 50) }}</td>
+                        <td>
+                            <span class="badge rounded-pill {{ $member->isLaboratoryDirector() ? 'bg-primary' : 'bg-secondary' }}">
+                                {{ $member->isLaboratoryDirector() ? 'Ha' : 'Yo\'q' }}
+                            </span>
+                        </td>
                         <td><span class="badge bg-secondary">{{ $member->order }}</span></td>
                         <td>
                             <span class="badge rounded-pill {{ $member->is_active ? 'bg-success' : 'bg-secondary' }}">
@@ -71,7 +77,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center py-5">
+                        <td colspan="8" class="text-center py-5">
                             <div class="text-body-tertiary mb-3">Hali jamoa a'zolari qo'shilmagan.</div>
                             <a href="{{ route('admin.laboratories.teams.create', $laboratory) }}"
                                 class="btn btn-primary btn-sm d-inline-flex align-items-center gap-2">

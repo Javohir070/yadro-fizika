@@ -50,6 +50,7 @@ class StoreLaboratoryTeamRequest extends FormRequest
             'scopus' => ['nullable', 'url', 'max:500'],
             'researchgate' => ['nullable', 'url', 'max:500'],
             'orcid' => ['nullable', 'url', 'max:500'],
+            'type' => ['required', 'in:0,1'],
             'order' => ['required', 'integer', 'min:0'],
             'is_active' => ['required', 'boolean'],
         ];

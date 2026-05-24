@@ -78,6 +78,27 @@
 <hr class="my-4">
 
 <h6 class="fw-semibold mb-3">Rasm va tartib</h6>
+<div class="row g-3 mb-3">
+    <div class="col-12">
+        <label class="form-label d-block">Laboratoriya mudiri *</label>
+        @php
+            $typeValue = (string) old('type', $member?->type ?? 0);
+        @endphp
+        <div class="d-flex flex-wrap gap-4 @error('type') is-invalid @enderror">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="type" id="team_type_1" value="1"
+                    @checked($typeValue === '1')>
+                <label class="form-check-label" for="team_type_1">Ha</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="type" id="team_type_0" value="0"
+                    @checked($typeValue === '0')>
+                <label class="form-check-label" for="team_type_0">Yo'q</label>
+            </div>
+        </div>
+        @error('type') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+    </div>
+</div>
 <div class="row g-3">
     <div class="col-md-6">
         <label class="form-label">Rasm {{ $member ? '' : '*' }}</label>

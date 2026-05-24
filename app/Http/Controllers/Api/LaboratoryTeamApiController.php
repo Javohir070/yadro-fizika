@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\Concerns\ResolvesPublicMediaUrl;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InputRequest;
+use App\Http\Requests\LaboratoryRelatedInputRequest;
 use App\Http\Requests\LaboratoryRelatedListRequest;
 use App\Http\Requests\LaboratoryTeamListRequest;
 use App\Models\LaboratoryTeam;
@@ -37,6 +38,31 @@ class LaboratoryTeamApiController extends Controller
         );
 
         return $this->paginatedSuccessResponse($paginator);
+    }
+
+    /**
+     * Laboratoriya mudiri (type=1) — laboratory_id bo'yicha bitta yozuv.
+     */
+    public function director(LaboratoryRelatedInputRequest $request)
+    {
+        $validated = $request->validated();
+        $lang = $this->resolveLang($validated['lang']);
+        $laboratoryId = (int) $validated['laboratory_id'];
+        $activeOnly = (int) $validated['status'] === 1;
+
+        $team = LaboratoryTeam::query()
+            ->where('laboratory_id', $laboratoryId)
+            ->where('type', 1)
+            ->where('is_active', $activeOnly)
+            ->orderBy('order')
+            ->orderByDesc('id')
+            ->first();
+
+        if ($team === null) {
+            return $this->notFoundResponse('Laboratoriya mudiri ma\'lumotlari topilmadi', 404);
+        }
+
+        return $this->successResponse($this->transform($team, $lang));
     }
 
     /**
@@ -85,6 +111,7 @@ class LaboratoryTeamApiController extends Controller
         return [
             'id' => $row->id,
             'laboratory_id' => $row->laboratory_id,
+            'type' => (int) $row->type,
             'full_name' => $row->{'full_name_'.$lang},
             'position' => $row->{'position_'.$lang},
             'degree' => $row->{'degree_'.$lang},
