@@ -35,6 +35,7 @@ class Image extends Model
         return match ($this->imageable_type) {
             \App\Models\News::class => $parent->title_uz ?? null,
             \App\Models\Laboratory::class => $parent->name_uz ?? null,
+            \App\Models\Gallery::class => $parent->title_uz ?? null,
             default => null,
         };
     }

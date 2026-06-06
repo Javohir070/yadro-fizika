@@ -17,7 +17,7 @@ class UpdateAboutRequest extends FormRequest
             'content_uz' => ['required', 'string'],
             'content_ru' => ['required', 'string'],
             'content_en' => ['required', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'is_active' => ['required', 'boolean'],
         ];
     }

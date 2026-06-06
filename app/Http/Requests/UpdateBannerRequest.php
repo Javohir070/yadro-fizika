@@ -23,7 +23,7 @@ class UpdateBannerRequest extends FormRequest
             'description_uz' => ['sometimes', 'required', 'string'],
             'description_ru' => ['sometimes', 'required', 'string'],
             'description_en' => ['sometimes', 'required', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'is_active' => ['required', 'boolean'],
         ];
     }

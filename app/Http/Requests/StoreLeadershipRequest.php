@@ -23,7 +23,7 @@ class StoreLeadershipRequest extends FormRequest
             'position_en' => ['required', 'string', 'max:1000'],
             'phone' => ['nullable', 'string', 'max:50'],
             'email' => ['nullable', 'email', 'max:255'],
-            'photo' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'photo' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'is_active' => ['required', 'boolean'],
             'order' => ['required', 'integer', 'min:0'],
         ];

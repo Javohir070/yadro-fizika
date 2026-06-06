@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('news', NewsController::class);
         Route::resource('images', ImageController::class);
         Route::resource('partners', PartnerController::class);
+        Route::post('galleries/{gallery}/images', [GalleryController::class, 'storeImages'])->name('galleries.images.store');
         Route::resource('galleries', GalleryController::class);
         Route::resource('structures', StructureController::class);
         Route::resource('doctorals', DoctoralController::class);

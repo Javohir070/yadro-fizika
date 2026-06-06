@@ -20,7 +20,7 @@ class UpdateScientificCouncilRequest extends FormRequest
             'council_duties_uz' => ['required', 'string'],
             'council_duties_ru' => ['required', 'string'],
             'council_duties_en' => ['required', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'is_active' => ['required', 'boolean'],
         ];
     }

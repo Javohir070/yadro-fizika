@@ -16,7 +16,7 @@ class UpdateImageRequest extends FormRequest
     {
         return [
             'imageable_ref' => ['required', 'string', 'regex:/^(news|laboratory):\d+$/'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'is_active' => ['required', 'boolean'],
         ];
     }

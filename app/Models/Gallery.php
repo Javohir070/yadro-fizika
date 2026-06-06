@@ -2,11 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasImages;
 use Illuminate\Database\Eloquent\Model;
 
 class Gallery extends Model
 {
+    use HasImages;
+
     protected $fillable = [
+        'title_uz',
+        'title_ru',
+        'title_en',
         'image',
         'is_active',
     ];

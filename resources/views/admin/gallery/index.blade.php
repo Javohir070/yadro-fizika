@@ -21,7 +21,9 @@
                     <thead>
                         <tr>
                             <th style="width: 50px;">#</th>
-                            <th>Rasm</th>
+                            <th>Sarlavha</th>
+                            <th>Asosiy rasm</th>
+                            <th>Qo'shimcha</th>
                             <th>Holati</th>
                             <th class="text-end pe-8">Amallar</th>
                         </tr>
@@ -30,9 +32,13 @@
                         @forelse ($galleries as $gallery)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
+                                <td style="max-width: 280px;">{{ Str::limit($gallery->title_uz, 60) }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $gallery->image) }}" alt="Gallery image"
+                                    <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title_uz }}"
                                         style="width: 100px; height: 60px; object-fit: cover;" class="rounded border">
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">{{ $gallery->images_count }} ta</span>
                                 </td>
                                 <td>
                                     <button type="button"
@@ -58,7 +64,7 @@
                                             <button type="submit"
                                                 class="btn btn-sm btn-outline-danger d-inline-flex align-items-center justify-content-center"
                                                 style="width: 36px; height: 36px;"
-                                                onclick="return confirm('Galereya rasmi o\'chirilsinmi?')">
+                                                onclick="return confirm('Galereya o\'chirilsinmi?')">
                                                 <span class="w-5 h-5 flex items-center justify-center">
                                                     <i data-feather="trash" class="w-4 h-4"></i>
                                                 </span>
@@ -69,8 +75,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center py-5">
-                                    <a href="{{ route('admin.galleries.create') }}" class="btn btn-primary btn-sm">Birinchi rasmni qo'shish</a>
+                                <td colspan="6" class="text-center py-5">
+                                    <a href="{{ route('admin.galleries.create') }}" class="btn btn-primary btn-sm">Birinchi galereyani qo'shish</a>
                                 </td>
                             </tr>
                         @endforelse

@@ -24,7 +24,7 @@ class StoreCouncilMemberRequest extends FormRequest
             'degree_uz' => ['required', 'string', 'max:255'],
             'degree_ru' => ['required', 'string', 'max:255'],
             'degree_en' => ['required', 'string', 'max:255'],
-            'photo' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'photo' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'order' => ['required', 'integer', 'min:1'],
             'is_active' => ['required', 'boolean'],
         ];

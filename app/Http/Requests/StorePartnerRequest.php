@@ -20,7 +20,7 @@ class StorePartnerRequest extends FormRequest
             'description_uz' => ['required', 'string', 'max:600'],
             'description_ru' => ['required', 'string', 'max:600'],
             'description_en' => ['required', 'string', 'max:600'],
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'link' => ['required', 'url', 'max:255'],
             'is_active' => ['required', 'boolean'],
         ];

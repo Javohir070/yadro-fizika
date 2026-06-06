@@ -44,7 +44,7 @@ class UpdateLaboratoryTeamRequest extends FormRequest
             'degree_uz' => ['nullable', 'string'],
             'degree_ru' => ['nullable', 'string'],
             'degree_en' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'google_scholar' => ['nullable', 'url', 'max:500'],
             'web_of_science' => ['nullable', 'url', 'max:500'],
             'scopus' => ['nullable', 'url', 'max:500'],

@@ -21,7 +21,7 @@ class StoreNewsRequest extends FormRequest
             'description_ru' => ['required', 'string'],
             'description_en' => ['required', 'string'],
             'images' => ['nullable', 'array'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'is_active' => ['required', 'boolean'],
         ];
     }

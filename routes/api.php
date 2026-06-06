@@ -9,7 +9,7 @@
  * - page, per_page (faqat sahifalangan ro‘yxatlar): standart 1 va 15, per_page maks. 50.
  *
  * Bir nechta resursda `index` bitta yozuv (first), `.../list` yoki ko‘plik nomi sahifalangan ro‘yxat.
- * Bitta yozuv: `news/{id}`, `ads/{id}`, `conferences/{id}` — `InputRequest` (lang, status).
+ * Bitta yozuv: `news/{id}`, `ads/{id}`, `conferences/{id}`, `galleries/{id}` — `InputRequest` (lang, status).
  */
 
 use App\Http\Controllers\Api\AboutApiController;
@@ -66,6 +66,7 @@ Route::get('ads/{id}', [AdApiController::class, 'show']);
 Route::get('conferences', [ConferenceApiController::class, 'index']);
 Route::get('conferences/{id}', [ConferenceApiController::class, 'show']);
 Route::get('galleries', [GalleryApiController::class, 'index']);
+Route::get('galleries/{id}', [GalleryApiController::class, 'show']);
 Route::get('video-gallery', [VideoGalleryApiController::class, 'index']);
 Route::get('partners', [PartnerApiController::class, 'index']);
 Route::get('leadership', [LeadershipApiController::class, 'index']);

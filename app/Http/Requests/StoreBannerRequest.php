@@ -23,7 +23,7 @@ class StoreBannerRequest extends FormRequest
             'description_uz' => ['required', 'string'],
             'description_ru' => ['required', 'string'],
             'description_en' => ['required', 'string'],
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'is_active' => ['required', 'boolean'],
         ];
     }
