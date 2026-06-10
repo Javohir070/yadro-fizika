@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\ServiceProvider;
+use App\Support\MenuPermissionResolver;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +29,12 @@ class AppServiceProvider extends ServiceProvider
         if (str_starts_with((string) config('app.url'), 'https://')) {
             URL::forceScheme('https');
         }
+
+        View::composer('admin.*', function ($view): void {
+            $view->with(
+                'pagePermission',
+                MenuPermissionResolver::fromRoute(Route::currentRouteName())
+            );
+        });
     }
 }

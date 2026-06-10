@@ -1,3 +1,4 @@
+@can('Bosh sahifa')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('/') ? 'active' : '' }}" href="{{ route('home.index') }}"
@@ -13,7 +14,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Bannerlar')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/banners*') ? 'active' : '' }}"
@@ -29,7 +32,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('E\'lonlar')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/ads*') ? 'active' : '' }}"
@@ -45,7 +50,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Konferensiyalar')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/conferences*') ? 'active' : '' }}"
@@ -61,7 +68,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('About')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/abouts*') ? 'active' : '' }}"
@@ -77,7 +86,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Institut tarixi')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/institute-histories*') ? 'active' : '' }}"
@@ -93,7 +104,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Institut nizomi')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/charters*') ? 'active' : '' }}"
@@ -109,7 +122,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Institut direktorlari')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/institute-directors*') ? 'active' : '' }}"
@@ -125,7 +140,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Institut tuzilmasi')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/institute-structures*') ? 'active' : '' }}"
@@ -141,7 +158,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Tashkilot tuzilmasi')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/structures*') ? 'active' : '' }}"
@@ -157,7 +176,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Laboratoriyalar')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/laboratories*') ? 'active' : '' }}"
@@ -173,7 +194,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Bo\'limlar')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/departments*') ? 'active' : '' }}"
@@ -189,7 +212,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Rahbariyat')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/leaderships*') ? 'active' : '' }}"
@@ -205,7 +230,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Hamkorlar')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/partners*') ? 'active' : '' }}"
@@ -221,7 +248,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Yangiliklar')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/news*') ? 'active' : '' }}"
@@ -237,7 +266,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Galereya')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/galleries*') ? 'active' : '' }}"
@@ -253,7 +284,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Video galereya')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/video-gallers*') ? 'active' : '' }}"
@@ -269,7 +302,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Statistika bloklari')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/stats*') ? 'active' : '' }}"
@@ -285,7 +320,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Doktorantura')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/doctorals*') ? 'active' : '' }}"
@@ -301,7 +338,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Yangiliklar rasmlari')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/images*') ? 'active' : '' }}"
@@ -317,7 +356,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Ilmiy kengash')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/scientific-councils*') ? 'active' : '' }}"
@@ -333,7 +374,9 @@
         </a>
     </div>
 </li>
+@endcan
 
+@can('Kengash a\'zolari')
 <li class="nav-item">
     <div class="nav-item-wrapper">
         <a class="nav-link label-1 {{ request()->is('admin/council-members*') ? 'active' : '' }}"
@@ -349,3 +392,73 @@
         </a>
     </div>
 </li>
+@endcan
+
+@php
+    $settingsActive = request()->is('admin/users*', 'admin/roles*', 'admin/permissions*');
+    $canViewSettings = auth()->user()?->can('Sozlamalar')
+        || auth()->user()?->can('Foydalanuvchilar')
+        || auth()->user()?->can('Rollar')
+        || auth()->user()?->can('Ruxsatlar');
+@endphp
+
+@if ($canViewSettings)
+<li class="nav-item">
+    <div class="nav-item-wrapper">
+        <a class="nav-link dropdown-indicator label-1 {{ $settingsActive ? '' : 'collapsed' }}"
+            href="#nv-settings" role="button" data-bs-toggle="collapse"
+            aria-expanded="{{ $settingsActive ? 'true' : 'false' }}" aria-controls="nv-settings">
+            <div class="d-flex align-items-center">
+                <span class="dropdown-indicator-icon-wrapper">
+                    <span class="fas fa-caret-right dropdown-indicator-icon"></span>
+                </span>
+                <span class="nav-link-icon">
+                    <span data-feather="settings" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Sozlamalar</span>
+                </span>
+            </div>
+        </a>
+        <div class="parent-wrapper label-1">
+            <ul class="nav collapse parent {{ $settingsActive ? 'show' : '' }}" data-bs-parent="#navbarVerticalNav"
+                id="nv-settings">
+                <li class="collapsed-nav-item-title d-none">Sozlamalar</li>
+
+                @can('Foydalanuvchilar')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}"
+                        href="{{ route('admin.users.index') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-text">Foydalanuvchilar</span>
+                        </div>
+                    </a>
+                </li>
+                @endcan
+
+                @can('Rollar')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('admin/roles*') ? 'active' : '' }}"
+                        href="{{ route('admin.roles.index') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-text">Rollar</span>
+                        </div>
+                    </a>
+                </li>
+                @endcan
+
+                @can('Ruxsatlar')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('admin/permissions*') ? 'active' : '' }}"
+                        href="{{ route('admin.permissions.index') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-text">Ruxsatlar</span>
+                        </div>
+                    </a>
+                </li>
+                @endcan
+            </ul>
+        </div>
+    </div>
+</li>
+@endif
