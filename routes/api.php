@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\LaboratoryTeamApiController;
 use App\Http\Controllers\Api\LeadershipApiController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PartnerApiController;
+use App\Http\Controllers\Api\PublicationApiController;
 use App\Http\Controllers\Api\ScientificActivityApiController;
 use App\Http\Controllers\Api\ScientificCouncilApiController;
 use App\Http\Controllers\Api\StatApiController;
@@ -84,5 +85,7 @@ Route::get('scientific-activities', [ScientificActivityApiController::class, 'in
 Route::get('scientific-activities/{id}', [ScientificActivityApiController::class, 'show']);
 Route::get('international-collaborations', [InternationalCollaborationApiController::class, 'index']);
 Route::get('doctorals', [DoctoralApiController::class, 'index']);
+Route::get('publications', [PublicationApiController::class, 'index']);
+Route::get('publications/{id}', [PublicationApiController::class, 'show']);
 Route::get('council-members', [CouncilMemberApiController::class, 'index']);
 Route::get('stats', [StatApiController::class, 'index']);

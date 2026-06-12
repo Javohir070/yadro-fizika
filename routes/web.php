@@ -22,6 +22,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScientificActivityController;
 use App\Http\Controllers\ScientificCouncilController;
@@ -102,6 +103,8 @@ Route::middleware('auth')->group(function () {
             ->middleware('permission:'.$menuPermissions['structures']);
         Route::resource('doctorals', DoctoralController::class)
             ->middleware('permission:'.$menuPermissions['doctorals']);
+        Route::resource('publications', PublicationController::class)
+            ->middleware('permission:'.$menuPermissions['publications']);
         Route::resource('scientific-councils', ScientificCouncilController::class)
             ->middleware('permission:'.$menuPermissions['scientific-councils']);
         Route::resource('council-members', CouncilMemberController::class)

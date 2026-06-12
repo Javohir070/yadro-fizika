@@ -17,10 +17,12 @@ use App\Models\Laboratory;
 use App\Models\Leadership;
 use App\Models\News;
 use App\Models\Partner;
+use App\Models\Publication;
 use App\Models\ScientificCouncil;
 use App\Models\Stat;
 use App\Models\Structure;
 use App\Models\VideoGaller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class HomeController extends Controller
@@ -43,6 +45,7 @@ class HomeController extends Controller
             ['label' => 'Galereya', 'permission' => 'Galereya', 'model' => Gallery::class, 'route' => 'admin.galleries.index'],
             ['label' => 'Tashkilot tuzilmasi', 'permission' => 'Tashkilot tuzilmasi', 'model' => Structure::class, 'route' => 'admin.structures.index'],
             ['label' => 'Doktorantura', 'permission' => 'Doktorantura', 'model' => Doctoral::class, 'route' => 'admin.doctorals.index'],
+            ['label' => 'Nashrlar', 'permission' => 'Nashrlar', 'model' => Publication::class, 'route' => 'admin.publications.index'],
             ['label' => 'Ilmiy kengash', 'permission' => 'Ilmiy kengash', 'model' => ScientificCouncil::class, 'route' => 'admin.scientific-councils.index'],
             ['label' => "Kengash a'zolari", 'permission' => "Kengash a'zolari", 'model' => CouncilMember::class, 'route' => 'admin.council-members.index'],
             ['label' => 'Video galereya', 'permission' => 'Video galereya', 'model' => VideoGaller::class, 'route' => 'admin.video-gallers.index'],
@@ -50,7 +53,7 @@ class HomeController extends Controller
         ];
 
         $stats = collect($sections)
-            ->filter(fn (array $section) => auth()->user()?->can($section['permission']))
+            ->filter(fn (array $section) => Auth::user()?->can($section['permission']))
             ->map(function (array $section) {
                 $model = $section['model'];
                 $instance = new $model;

@@ -340,6 +340,24 @@
 </li>
 @endcan
 
+@can('Nashrlar')
+<li class="nav-item">
+    <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/publications*') ? 'active' : '' }}"
+            href="{{ route('admin.publications.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="book" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Nashrlar</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+@endcan
+
 @can('Yangiliklar rasmlari')
 <li class="nav-item">
     <div class="nav-item-wrapper">
