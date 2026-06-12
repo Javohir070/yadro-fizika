@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\LaboratoryType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateLaboratoryRequest extends FormRequest
 {
@@ -17,6 +19,7 @@ class UpdateLaboratoryRequest extends FormRequest
             'name_uz' => ['required', 'string', 'max:600'],
             'name_ru' => ['required', 'string', 'max:600'],
             'name_en' => ['required', 'string', 'max:600'],
+            'type' => ['required', Rule::in(array_column(LaboratoryType::cases(), 'value'))],
             'details_uz' => ['required', 'string'],
             'details_ru' => ['required', 'string'],
             'details_en' => ['required', 'string'],

@@ -60,13 +60,24 @@
 
     <div class="row g-3 mt-1">
         @include('admin.components.image-upload-fields', ['model' => $laboratory])
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <label class="form-label">Turi *</label>
+            <select name="type" class="form-select @error('type') is-invalid @enderror">
+                @foreach (\App\Enums\LaboratoryType::cases() as $type)
+                    <option value="{{ $type->value }}" @selected(old('type', $laboratory->type?->value ?? \App\Enums\LaboratoryType::Laboratory->value) === $type->value)>
+                        {{ $type->label() }}
+                    </option>
+                @endforeach
+            </select>
+            @error('type') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        </div>
+        <div class="col-md-4">
             <label class="form-label">Tartib *</label>
             <input type="number" min="0" name="order" value="{{ old('order', $laboratory->order) }}"
                 class="form-control @error('order') is-invalid @enderror">
             @error('order') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label class="form-label">Holati *</label>
             <select name="is_active" class="form-select @error('is_active') is-invalid @enderror">
                 <option value="1" @selected(old('is_active', $laboratory->is_active ? '1' : '0') == '1')>Aktiv</option>

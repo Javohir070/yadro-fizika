@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\LaboratoryType;
 use App\Models\Concerns\HasImages;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +16,7 @@ class Laboratory extends Model
         'name_uz',
         'name_ru',
         'name_en',
+        'type',
         'details_uz',
         'details_ru',
         'details_en',
@@ -25,6 +27,7 @@ class Laboratory extends Model
     protected $casts = [
         'is_active' => 'boolean',
         'order' => 'integer',
+        'type' => LaboratoryType::class,
     ];
 
     public function teams(): HasMany

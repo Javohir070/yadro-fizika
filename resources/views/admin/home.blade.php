@@ -13,7 +13,10 @@
     <style>
         .dashboard-stat-card {
             border: 1px solid rgba(148, 163, 184, 0.15);
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+            background-color: var(--phoenix-card-bg, var(--bs-card-bg));
+            color: var(--phoenix-body-color, var(--bs-body-color));
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease,
+                background-color 0.18s ease;
         }
 
         .dashboard-stat-card:hover {
@@ -25,6 +28,7 @@
         .dashboard-mini-card {
             border: 1px solid rgba(148, 163, 184, 0.18);
             background: linear-gradient(180deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.5) 100%);
+            color: var(--phoenix-body-color, var(--bs-body-color));
         }
 
         .dashboard-search {
@@ -43,6 +47,40 @@
             background: linear-gradient(90deg, #22c55e 0%, #4ade80 100%);
             border-radius: 999px;
             transition: width 0.2s ease;
+        }
+
+        [data-bs-theme="dark"] .dashboard-stat-card {
+            border-color: rgba(203, 208, 221, 0.18);
+            background-color: #141824;
+            box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.22) !important;
+        }
+
+        [data-bs-theme="dark"] .dashboard-stat-card:hover {
+            box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.34) !important;
+            border-color: rgba(56, 116, 255, 0.48);
+        }
+
+        [data-bs-theme="dark"] .dashboard-mini-card {
+            border-color: rgba(203, 208, 221, 0.16);
+            background: linear-gradient(180deg, rgba(20, 24, 36, 0.96) 0%, rgba(17, 20, 30, 0.96) 100%);
+        }
+
+        [data-bs-theme="dark"] .dashboard-search .form-control {
+            border-color: rgba(203, 208, 221, 0.22);
+            background-color: #141824;
+            color: #e3e6ed;
+        }
+
+        [data-bs-theme="dark"] .dashboard-search .form-control::placeholder {
+            color: #9fa6bc;
+        }
+
+        [data-bs-theme="dark"] .dashboard-progress {
+            background-color: rgba(203, 208, 221, 0.16);
+        }
+
+        [data-bs-theme="dark"] .dashboard-progress-bar {
+            background: linear-gradient(90deg, #25b003 0%, #46d36b 100%);
         }
     </style>
 
@@ -114,7 +152,7 @@
                                 </div>
                                 <div class="small text-body-tertiary mb-1">Aktiv ulushi: {{ $activePercent }}%</div>
                                 <div class="dashboard-progress">
-                                    <div class="dashboard-progress-bar" style="width: {{ $activePercent }}%"></div>
+                                    <div class="dashboard-progress-bar" @style(['width' => $activePercent . '%'])></div>
                                 </div>
                             @else
                                 <span class="text-body-tertiary small">Bu bo'limda aktiv/nofaol mavjud emas.</span>

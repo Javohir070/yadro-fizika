@@ -23,6 +23,7 @@
                             <th style="width: 50px;">#</th>
                             <th>Tartib</th>
                             <th>Nomi (UZ)</th>
+                            <th>Turi</th>
                             <th>Tafsilot (UZ)</th>
                             <th>Holati</th>
                             <th class="text-end pe-8">Amallar</th>
@@ -34,6 +35,11 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td><span class="badge bg-secondary">{{ $laboratory->order }}</span></td>
                                 <td>{{ $laboratory->name_uz }}</td>
+                                <td>
+                                    <span class="badge rounded-pill bg-primary-subtle text-primary">
+                                        {{ $laboratory->type?->label() ?? 'Laboratoriya' }}
+                                    </span>
+                                </td>
                                 <td>{!! \Illuminate\Support\Str::limit(strip_tags($laboratory->details_uz), 120) !!}</td>
                                 <td>
                                     <button type="button"
@@ -67,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-5">
+                                <td colspan="7" class="text-center py-5">
                                     <a href="{{ route('admin.laboratories.create') }}" class="btn btn-primary btn-sm">Birinchi
                                         laboratoriyani qo'shish</a>
                                 </td>

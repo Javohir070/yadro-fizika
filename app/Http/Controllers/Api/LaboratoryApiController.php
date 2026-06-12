@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\Concerns\ResolvesPublicMediaUrl;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiListRequest;
 use App\Http\Requests\InputRequest;
+use App\Http\Requests\LaboratoryListRequest;
 use App\Models\Laboratory;
 use App\Trait\ApiResponseTrait;
 
@@ -17,7 +17,7 @@ class LaboratoryApiController extends Controller
     /**
      * Laboratoriyalar ro'yxati.
      */
-    public function index(ApiListRequest $request)
+    public function index(LaboratoryListRequest $request)
     {
         $validated = $request->validated();
         $status = (bool) (int) $validated['status'];
@@ -28,12 +28,14 @@ class LaboratoryApiController extends Controller
             ->select([
                 'id',
                 "name_{$lang}",
+                'type',
                 'order',
                 'is_active',
                 'created_at',
                 'updated_at',
             ])
             ->where('is_active', $status)
+            ->where('type', $validated['type'])
             ->orderBy('order')
             ->orderByDesc('id')
             ->paginate($perPage);
@@ -70,6 +72,8 @@ class LaboratoryApiController extends Controller
         return [
             'id' => $laboratory->id,
             'name' => $laboratory->{'name_'.$lang},
+            'type' => $laboratory->type?->value,
+            'type_label' => $laboratory->type?->label(),
             'order' => $laboratory->order,
             'is_active' => $laboratory->is_active,
             'created_at' => $laboratory->created_at,
