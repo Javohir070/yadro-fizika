@@ -70,6 +70,24 @@
 </li>
 @endcan
 
+@can('Tadbirlar')
+<li class="nav-item">
+    <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/events*') ? 'active' : '' }}"
+            href="{{ route('admin.events.index') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="flag" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Tadbirlar</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+@endcan
+
 @can('About')
 <li class="nav-item">
     <div class="nav-item-wrapper">

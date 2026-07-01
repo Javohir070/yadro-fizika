@@ -8,6 +8,7 @@ use App\Models\Charter;
 use App\Models\CouncilMember;
 use App\Models\Department;
 use App\Models\Doctoral;
+use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\Image;
 use App\Models\InstituteDirector;
@@ -46,6 +47,7 @@ class HomeController extends Controller
             ['label' => 'Tashkilot tuzilmasi', 'permission' => 'Tashkilot tuzilmasi', 'model' => Structure::class, 'route' => 'admin.structures.index'],
             ['label' => 'Doktorantura', 'permission' => 'Doktorantura', 'model' => Doctoral::class, 'route' => 'admin.doctorals.index'],
             ['label' => 'Nashrlar', 'permission' => 'Nashrlar', 'model' => Publication::class, 'route' => 'admin.publications.index'],
+            ['label' => 'Tadbirlar', 'permission' => 'Tadbirlar', 'model' => Event::class, 'route' => 'admin.events.index'],
             ['label' => 'Ilmiy kengash', 'permission' => 'Ilmiy kengash', 'model' => ScientificCouncil::class, 'route' => 'admin.scientific-councils.index'],
             ['label' => "Kengash a'zolari", 'permission' => "Kengash a'zolari", 'model' => CouncilMember::class, 'route' => 'admin.council-members.index'],
             ['label' => 'Video galereya', 'permission' => 'Video galereya', 'model' => VideoGaller::class, 'route' => 'admin.video-gallers.index'],

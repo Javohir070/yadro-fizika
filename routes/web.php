@@ -8,6 +8,7 @@ use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\CouncilMemberController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctoralController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
@@ -105,6 +106,8 @@ Route::middleware('auth')->group(function () {
             ->middleware('permission:'.$menuPermissions['doctorals']);
         Route::resource('publications', PublicationController::class)
             ->middleware('permission:'.$menuPermissions['publications']);
+        Route::resource('events', EventController::class)
+            ->middleware('permission:'.$menuPermissions['events']);
         Route::resource('scientific-councils', ScientificCouncilController::class)
             ->middleware('permission:'.$menuPermissions['scientific-councils']);
         Route::resource('council-members', CouncilMemberController::class)

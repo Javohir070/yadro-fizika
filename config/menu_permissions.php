@@ -22,6 +22,7 @@ return [
         'structures' => 'Tashkilot tuzilmasi',
         'doctorals' => 'Doktorantura',
         'publications' => 'Nashrlar',
+        'events' => 'Tadbirlar',
         'scientific-councils' => 'Ilmiy kengash',
         'council-members' => 'Kengash a\'zolari',
         'video-gallers' => 'Video galereya',
