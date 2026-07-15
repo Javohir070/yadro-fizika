@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\LaboratoryType;
 use App\Http\Controllers\Api\Concerns\ResolvesPublicMediaUrl;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InputRequest;
 use App\Http\Requests\LaboratoryRelatedInputRequest;
 use App\Http\Requests\LaboratoryRelatedListRequest;
 use App\Http\Requests\LaboratoryTeamListRequest;
+use App\Models\Laboratory;
 use App\Models\LaboratoryTeam;
 use App\Trait\ApiResponseTrait;
 
@@ -75,8 +77,10 @@ class LaboratoryTeamApiController extends Controller
         $lang = $this->resolveLang($validated['lang']);
         $perPage = (int) $validated['per_page'];
 
+        $laboratoryIds = Laboratory::query()->where('type', LaboratoryType::Laboratory)->pluck('id');
+
         $paginator = LaboratoryTeam::query()
-            ->when(isset($validated['laboratory_id']), fn ($query) => $query->where('laboratory_id', (int) $validated['laboratory_id']))
+            ->whereIn('laboratory_id', $laboratoryIds)
             ->where('is_active', $status)
             ->orderBy('order')
             ->latest('id')
