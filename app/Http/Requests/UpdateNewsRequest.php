@@ -23,6 +23,7 @@ class UpdateNewsRequest extends FormRequest
             'images' => ['nullable', 'array'],
             'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
             'is_active' => ['required', 'boolean'],
+            'order' => ['required', 'integer', 'min:0'],
         ];
     }
 }

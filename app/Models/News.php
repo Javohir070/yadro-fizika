@@ -16,10 +16,12 @@ class News extends Model
         'description_ru',
         'description_en',
         'is_active',
+        'order',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'order' => 'integer',
     ];
 
     public function scopeActive($query)

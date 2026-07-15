@@ -94,7 +94,13 @@
                             </div>
                         </div>
                     @endif
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <label class="form-label">Tartib *</label>
+                        <input type="number" min="0" name="order" value="{{ old('order', $news->order) }}"
+                            class="form-control @error('order') is-invalid @enderror">
+                        @error('order') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                    <div class="col-md-6">
                         <label class="form-label">Holati *</label>
                         <select name="is_active" class="form-select @error('is_active') is-invalid @enderror">
                             <option value="1" {{ old('is_active', $news->is_active) == 1 ? 'selected' : '' }}>Aktiv</option>

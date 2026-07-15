@@ -21,6 +21,7 @@
                     <thead>
                         <tr>
                             <th style="width: 50px;">#</th>
+                            <th>Tartib</th>
                             <th>Sarlavha (UZ)</th>
                             <th>Tavsif</th>
                             <th>Holati</th>
@@ -31,6 +32,7 @@
                         @forelse ($news as $item)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
+                                <td><span class="badge bg-secondary">{{ $item->order }}</span></td>
                                 <td>{{ $item->title_uz }}</td>
                                 <td>{{ \Illuminate\Support\Str::limit(strip_tags($item->description_uz), 80) }}</td>
                                 <td>
@@ -67,7 +69,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-5">
+                                <td colspan="6" class="text-center py-5">
                                     <a href="{{ route('admin.news.create') }}" class="btn btn-primary btn-sm">Birinchi yangilikni qo'shish</a>
                                 </td>
                             </tr>

@@ -27,7 +27,7 @@ class NewsApiController extends Controller
         $paginator = News::query()
             ->with(['images' => fn ($q) => $q->where('is_active', $status)])
             ->where('is_active', $status)
-            ->latest()
+            ->orderBy('order')
             ->paginate($perPage);
 
         $paginator->getCollection()->transform(function (News $news) use ($lang) {

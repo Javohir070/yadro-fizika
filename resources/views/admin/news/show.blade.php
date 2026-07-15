@@ -49,7 +49,13 @@
                         <div>{!! $news->description_en !!}</div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="p-3 rounded border">
+                        <div class="text-body-tertiary fs-9 mb-1">Tartib</div>
+                        <div class="fw-semibold">{{ $news->order }}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="p-3 rounded border">
                         <div class="text-body-tertiary fs-9 mb-2">Holati</div>
                         <button type="button"
