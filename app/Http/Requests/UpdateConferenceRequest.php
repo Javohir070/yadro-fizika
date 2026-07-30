@@ -30,7 +30,7 @@ class UpdateConferenceRequest extends FormRequest
             'location_uz' => ['required', 'string', 'max:1000'],
             'location_ru' => ['required', 'string', 'max:1000'],
             'location_en' => ['required', 'string', 'max:1000'],
-            'file' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
+            'file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
             'is_active' => ['required', 'boolean'],
         ];
     }
