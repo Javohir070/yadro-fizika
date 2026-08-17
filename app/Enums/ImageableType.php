@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use App\Models\Conference;
 use App\Models\Gallery;
 use App\Models\Laboratory;
 use App\Models\News;
@@ -11,6 +12,7 @@ enum ImageableType: string
     case News = 'news';
     case Laboratory = 'laboratory';
     case Gallery = 'gallery';
+    case Conference = 'conference';
 
     public function modelClass(): string
     {
@@ -18,6 +20,7 @@ enum ImageableType: string
             self::News => News::class,
             self::Laboratory => Laboratory::class,
             self::Gallery => Gallery::class,
+            self::Conference => Conference::class,
         };
     }
 
@@ -27,6 +30,7 @@ enum ImageableType: string
             self::News => 'Yangilik',
             self::Laboratory => 'Laboratoriya',
             self::Gallery => 'Galereya',
+            self::Conference => 'Konferensiya',
         };
     }
 
@@ -36,6 +40,7 @@ enum ImageableType: string
             self::News => 'news-images',
             self::Laboratory => 'laboratory-images',
             self::Gallery => 'gallery-images',
+            self::Conference => 'conference-images',
         };
     }
 
@@ -45,6 +50,7 @@ enum ImageableType: string
             News::class => self::News,
             Laboratory::class => self::Laboratory,
             Gallery::class => self::Gallery,
+            Conference::class => self::Conference,
             default => null,
         };
     }

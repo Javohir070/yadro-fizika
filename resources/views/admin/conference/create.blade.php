@@ -21,6 +21,16 @@
 
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('admin.conferences.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -111,16 +121,18 @@
                         @error('order') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Rasm</label>
-                        <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp"
-                            class="form-control @error('image') is-invalid @enderror">
-                        @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label class="form-label">Rasmlar</label>
+                        <input type="file" name="images[]" multiple accept=".jpg,.jpeg,.png,.webp"
+                            class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror">
+                        @error('images') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('images.*') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">PDF fayl</label>
-                        <input type="file" name="file" accept=".pdf"
-                            class="form-control @error('file') is-invalid @enderror">
-                        @error('file') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label class="form-label">Fayllar</label>
+                        <input type="file" name="files[]" multiple accept=".pdf,.doc,.docx"
+                            class="form-control @error('files') is-invalid @enderror @error('files.*') is-invalid @enderror">
+                        @error('files') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('files.*') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-12">
                         <label class="form-label">Holati *</label>

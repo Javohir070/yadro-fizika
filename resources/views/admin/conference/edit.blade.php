@@ -21,6 +21,16 @@
 
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('admin.conferences.update', $conference) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
@@ -120,28 +130,52 @@
                         @error('order') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Rasm</label>
-                        @if ($conference->image)
-                            <div class="mb-2">
-                                <img src="{{ asset('storage/' . $conference->image) }}" alt=""
-                                    class="rounded border" style="max-height: 120px; object-fit: cover;">
+                        <label class="form-label">Rasmlar</label>
+                        @if ($conference->images->isNotEmpty())
+                            <div class="d-flex flex-wrap gap-2 mb-2">
+                                @foreach ($conference->images as $image)
+                                    <div class="position-relative">
+                                        <img src="{{ asset('storage/' . $image->image) }}" alt=""
+                                            class="rounded border" style="width: 90px; height: 60px; object-fit: cover;">
+                                        <button type="submit" form="conference-image-destroy-{{ $image->id }}"
+                                            class="btn btn-sm btn-danger p-1 position-absolute top-0 end-0 m-1"
+                                            onclick="return confirm('Rasm o\'chirilsinmi?')"
+                                            title="Rasmni o'chirish" style="line-height: 1;">
+                                            <i data-feather="x" class="w-3 h-3"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
                             </div>
                         @endif
-                        <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp"
-                            class="form-control @error('image') is-invalid @enderror">
-                        @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <input type="file" name="images[]" multiple accept=".jpg,.jpeg,.png,.webp"
+                            class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror">
+                        @error('images') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('images.*') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">PDF fayl</label>
-                        @if ($conference->file)
-                            <div class="mb-2 small">
-                                <a href="{{ asset('storage/' . $conference->file) }}" target="_blank" rel="noopener noreferrer">Joriy
-                                    fayl</a>
+                        <label class="form-label">Fayllar</label>
+                        @if ($conference->files->isNotEmpty())
+                            <div class="d-flex flex-column gap-2 mb-2">
+                                @foreach ($conference->files as $file)
+                                    <div class="d-flex align-items-center justify-content-between gap-2 p-2 rounded border bg-body-secondary">
+                                        <a href="{{ asset('storage/' . $file->file) }}" target="_blank" rel="noopener noreferrer"
+                                            class="small text-truncate">
+                                            {{ $file->displayName() }}
+                                        </a>
+                                        <button type="submit" form="conference-file-destroy-{{ $file->id }}"
+                                            class="btn btn-sm btn-outline-danger p-1"
+                                            onclick="return confirm('Fayl o\'chirilsinmi?')"
+                                            title="Faylni o'chirish" style="line-height: 1;">
+                                            <i data-feather="x" class="w-3 h-3"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
                             </div>
                         @endif
-                        <input type="file" name="file" accept=".pdf"
-                            class="form-control @error('file') is-invalid @enderror">
-                        @error('file') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <input type="file" name="files[]" multiple accept=".pdf,.doc,.docx"
+                            class="form-control @error('files') is-invalid @enderror @error('files.*') is-invalid @enderror">
+                        @error('files') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('files.*') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-12">
                         <label class="form-label">Holati *</label>
@@ -161,6 +195,24 @@
                     <a href="{{ route('admin.conferences.index') }}" class="btn btn-outline-secondary">Bekor qilish</a>
                 </div>
             </form>
+
+            @foreach ($conference->images as $image)
+                <form id="conference-image-destroy-{{ $image->id }}"
+                    action="{{ route('admin.conferences.images.destroy', [$conference, $image]) }}" method="POST"
+                    class="d-none">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endforeach
+
+            @foreach ($conference->files as $file)
+                <form id="conference-file-destroy-{{ $file->id }}"
+                    action="{{ route('admin.conferences.files.destroy', [$conference, $file]) }}" method="POST"
+                    class="d-none">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endforeach
         </div>
     </div>
 

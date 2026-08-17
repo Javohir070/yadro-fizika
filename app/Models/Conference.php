@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasImages;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Conference extends Model
 {
+    use HasImages;
+
     protected $fillable = [
         'title_uz',
         'title_ru',
@@ -13,14 +17,12 @@ class Conference extends Model
         'description_uz',
         'description_ru',
         'description_en',
-        'image',
         'order',
         'start_date',
         'end_date',
         'location_uz',
         'location_ru',
         'location_en',
-        'file',
         'is_active',
     ];
 
@@ -30,6 +32,11 @@ class Conference extends Model
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(ConferenceFile::class)->latest('id');
+    }
 
     public function scopeActive($query)
     {

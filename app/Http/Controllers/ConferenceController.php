@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ImageableType;
+use App\Http\Controllers\Concerns\HandlesModelImages;
+use App\Http\Requests\StoreConferenceFilesRequest;
+use App\Http\Requests\StoreConferenceImagesRequest;
 use App\Http\Requests\StoreConferenceRequest;
 use App\Http\Requests\UpdateConferenceRequest;
 use App\Models\Conference;
+use App\Models\ConferenceFile;
+use App\Models\Image;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ConferenceController extends Controller
 {
+    use HandlesModelImages;
+
     public function index(): View
     {
         $conferences = Conference::query()
@@ -29,20 +38,11 @@ class ConferenceController extends Controller
     public function store(StoreConferenceRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        unset($data['files'], $data['images']);
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('conferences', 'public');
-        } else {
-            $data['image'] = null;
-        }
-
-        if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('conferences/files', 'public');
-        } else {
-            $data['file'] = null;
-        }
-
-        Conference::query()->create($data);
+        $conference = Conference::query()->create($data);
+        $this->storeUploadedImages($conference, $request, ImageableType::Conference);
+        $this->storeUploadedFiles($conference, $request);
 
         return redirect()
             ->route('admin.conferences.index')
@@ -51,69 +51,94 @@ class ConferenceController extends Controller
 
     public function show(Conference $conference): View
     {
+        $conference->load(['files', 'images']);
+
         return view('admin.conference.show', compact('conference'));
+    }
+
+    public function storeImages(StoreConferenceImagesRequest $request, Conference $conference): RedirectResponse
+    {
+        $this->storeUploadedImages($conference, $request, ImageableType::Conference);
+
+        return redirect()
+            ->route('admin.conferences.show', $conference)
+            ->with('status', 'create');
+    }
+
+    public function storeFiles(StoreConferenceFilesRequest $request, Conference $conference): RedirectResponse
+    {
+        $this->storeUploadedFiles($conference, $request);
+
+        return redirect()
+            ->route('admin.conferences.show', $conference)
+            ->with('status', 'create');
     }
 
     public function edit(Conference $conference): View
     {
+        $conference->load(['files', 'images']);
+
         return view('admin.conference.edit', compact('conference'));
     }
 
     public function update(UpdateConferenceRequest $request, Conference $conference): RedirectResponse
     {
         $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            if ($conference->image && Storage::disk('public')->exists($conference->image)) {
-                Storage::disk('public')->delete($conference->image);
-            }
-            $data['image'] = $request->file('image')->store('conferences', 'public');
-        } else {
-            unset($data['image']);
-        }
-
-        if ($request->hasFile('file')) {
-            if ($conference->file && Storage::disk('public')->exists($conference->file)) {
-                Storage::disk('public')->delete($conference->file);
-            }
-            $data['file'] = $request->file('file')->store('conferences/files', 'public');
-        } else {
-            unset($data['file']);
-        }
+        unset($data['files'], $data['images']);
 
         $conference->update($data);
+        $this->storeUploadedImages($conference, $request, ImageableType::Conference);
+        $this->storeUploadedFiles($conference, $request);
 
         return redirect()
             ->route('admin.conferences.index')
             ->with('success', 'Konferensiya muvaffaqiyatli yangilandi.');
     }
 
-    public function destroyImage(Conference $conference): RedirectResponse
+    public function destroyImage(Conference $conference, Image $image): RedirectResponse
     {
-        if (! $conference->image) {
-            return redirect()
-                ->route('admin.conferences.show', $conference)
-                ->with('status', 'error');
+        if ($image->imageable_id !== $conference->id || $image->imageable_type !== Conference::class) {
+            abort(404);
         }
 
-        if (Storage::disk('public')->exists($conference->image)) {
-            Storage::disk('public')->delete($conference->image);
+        if ($image->image && Storage::disk('public')->exists($image->image)) {
+            Storage::disk('public')->delete($image->image);
         }
 
-        $conference->update(['image' => null]);
+        $image->delete();
 
         return redirect()
-            ->route('admin.conferences.show', $conference)
+            ->back()
+            ->with('status', 'delete');
+    }
+
+    public function destroyFile(Conference $conference, ConferenceFile $file): RedirectResponse
+    {
+        if ($file->conference_id !== $conference->id) {
+            abort(404);
+        }
+
+        if ($file->file && Storage::disk('public')->exists($file->file)) {
+            Storage::disk('public')->delete($file->file);
+        }
+
+        $file->delete();
+
+        return redirect()
+            ->back()
             ->with('status', 'delete');
     }
 
     public function destroy(Conference $conference): RedirectResponse
     {
-        if ($conference->image && Storage::disk('public')->exists($conference->image)) {
-            Storage::disk('public')->delete($conference->image);
-        }
-        if ($conference->file && Storage::disk('public')->exists($conference->file)) {
-            Storage::disk('public')->delete($conference->file);
+        $conference->load(['files', 'images']);
+        $this->deleteModelImages($conference);
+        $conference->images()->delete();
+
+        foreach ($conference->files as $file) {
+            if ($file->file && Storage::disk('public')->exists($file->file)) {
+                Storage::disk('public')->delete($file->file);
+            }
         }
 
         $conference->delete();
@@ -121,5 +146,19 @@ class ConferenceController extends Controller
         return redirect()
             ->route('admin.conferences.index')
             ->with('success', 'Konferensiya muvaffaqiyatli o\'chirildi.');
+    }
+
+    private function storeUploadedFiles(Conference $conference, Request $request): void
+    {
+        if (! $request->hasFile('files')) {
+            return;
+        }
+
+        foreach ($request->file('files') as $uploadedFile) {
+            $conference->files()->create([
+                'file' => $uploadedFile->store('conferences/files', 'public'),
+                'original_name' => $uploadedFile->getClientOriginalName(),
+            ]);
+        }
     }
 }

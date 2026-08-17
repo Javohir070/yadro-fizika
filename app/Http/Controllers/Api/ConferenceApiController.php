@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListRequest;
 use App\Http\Requests\InputRequest;
 use App\Models\Conference;
+use App\Models\ConferenceFile;
+use App\Models\Image;
 use App\Trait\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 
 /**
- * Konferensiyalar ro‘yxati (ko‘p tilli kontent, rasm va ixtiyoriy PDF).
+ * Konferensiyalar ro‘yxati (ko‘p tilli kontent, rasm va ixtiyoriy fayllar).
  */
 class ConferenceApiController extends Controller
 {
@@ -36,7 +38,7 @@ class ConferenceApiController extends Controller
             ->paginate($perPage);
 
         $paginator->getCollection()->transform(function (Conference $conference) use ($lang) {
-            return $this->formatConference($conference, $lang);
+            return $this->formatConference($conference, $lang, false);
         });
 
         return $this->paginatedSuccessResponse($paginator);
@@ -52,6 +54,7 @@ class ConferenceApiController extends Controller
         $lang = $this->resolveLang($validated['lang']);
 
         $conference = Conference::query()
+            ->with(['files', 'images'])
             ->where('id', $id)
             ->where('is_active', $status)
             ->first();
@@ -60,27 +63,46 @@ class ConferenceApiController extends Controller
             return $this->notFoundResponse('Konferensiya topilmadi', 404);
         }
 
-        return $this->successResponse($this->formatConference($conference, $lang));
+        return $this->successResponse($this->formatConference($conference, $lang, true));
     }
 
     /**
      * Konferensiya formati
      */
-    private function formatConference(Conference $conference, string $lang): array
+    private function formatConference(Conference $conference, string $lang, bool $withMedia): array
     {
-        return [
+        $data = [
             'id' => $conference->id,
             'title' => $conference->{'title_'.$lang},
             'description' => $conference->{'description_'.$lang},
             'location' => $conference->{'location_'.$lang},
-            'image' => $this->storagePublicUrl($conference->image),
-            'file' => $this->storagePublicUrl($conference->file),
             'start_date' => $conference->start_date?->format('Y-m-d'),
             'end_date' => $conference->end_date?->format('Y-m-d'),
             'order' => $conference->order,
             'created_at' => $conference->created_at,
             'updated_at' => $conference->updated_at,
         ];
+
+        if (! $withMedia) {
+            return $data;
+        }
+
+        $data['images'] = $conference->images->map(function (Image $image) {
+            return [
+                'id' => $image->id,
+                'url' => $this->storagePublicUrl($image->image),
+            ];
+        })->values()->all();
+
+        $data['files'] = $conference->files->map(function (ConferenceFile $file) {
+            return [
+                'id' => $file->id,
+                'name' => $file->displayName(),
+                'url' => $this->storagePublicUrl($file->file),
+            ];
+        })->values()->all();
+
+        return $data;
     }
 
     private function resolveLang(string $lang): string
