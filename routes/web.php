@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
             ->middleware('permission:'.$menuPermissions['ads']);
         Route::resource('conferences', ConferenceController::class)
             ->middleware('permission:'.$menuPermissions['conferences']);
+        Route::delete('conferences/{conference}/image', [ConferenceController::class, 'destroyImage'])
+            ->middleware('permission:'.$menuPermissions['conferences'])
+            ->name('conferences.image.destroy');
         Route::resource('abouts', AboutController::class)
             ->middleware('permission:'.$menuPermissions['abouts']);
         Route::resource('institute-histories', InstituteHistoryController::class)

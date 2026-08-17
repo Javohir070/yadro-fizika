@@ -27,6 +27,8 @@
         }
     </style>
 
+    @include('admin.components.session')
+
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
         <div>
             <h3 class="mb-0 fw-semibold">Konferensiya</h3>
@@ -45,8 +47,20 @@
                     <div class="col-12">
                         <div class="p-3 rounded border bg-body-secondary">
                             <div class="text-body-tertiary fs-9 mb-2">Rasm</div>
-                            <img src="{{ asset('storage/' . $conference->image) }}" alt="{{ $conference->title_uz }}"
-                                class="img-fluid rounded border" style="max-height: 320px; object-fit: contain;">
+                            <div class="position-relative d-inline-block">
+                                <img src="{{ asset('storage/' . $conference->image) }}" alt="{{ $conference->title_uz }}"
+                                    class="img-fluid rounded border" style="max-height: 320px; object-fit: contain;">
+                                <form action="{{ route('admin.conferences.image.destroy', $conference) }}" method="POST"
+                                    class="position-absolute top-0 end-0 m-1">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger p-1"
+                                        onclick="return confirm('Rasm o\'chirilsinmi?')"
+                                        style="line-height: 1;" title="Rasmni o'chirish">
+                                        <i data-feather="x" class="w-3 h-3"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @endif

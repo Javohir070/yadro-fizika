@@ -88,6 +88,25 @@ class ConferenceController extends Controller
             ->with('success', 'Konferensiya muvaffaqiyatli yangilandi.');
     }
 
+    public function destroyImage(Conference $conference): RedirectResponse
+    {
+        if (! $conference->image) {
+            return redirect()
+                ->route('admin.conferences.show', $conference)
+                ->with('status', 'error');
+        }
+
+        if (Storage::disk('public')->exists($conference->image)) {
+            Storage::disk('public')->delete($conference->image);
+        }
+
+        $conference->update(['image' => null]);
+
+        return redirect()
+            ->route('admin.conferences.show', $conference)
+            ->with('status', 'delete');
+    }
+
     public function destroy(Conference $conference): RedirectResponse
     {
         if ($conference->image && Storage::disk('public')->exists($conference->image)) {
