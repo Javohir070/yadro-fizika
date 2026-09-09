@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ad extends Model
 {
@@ -21,6 +22,11 @@ class Ad extends Model
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(AdFile::class)->latest('id');
+    }
 
     public function scopeActive($query)
     {

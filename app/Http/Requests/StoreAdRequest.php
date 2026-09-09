@@ -23,6 +23,8 @@ class StoreAdRequest extends FormRequest
             'description_uz' => ['required', 'string'],
             'description_ru' => ['required', 'string'],
             'description_en' => ['required', 'string'],
+            'files' => ['nullable', 'array'],
+            'files.*' => ['file', 'mimes:pdf,doc,docx', 'max:10240'],
             'order' => ['required', 'integer', 'min:0'],
             'is_active' => ['required', 'boolean'],
         ];

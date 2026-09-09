@@ -21,7 +21,17 @@
 
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
-            <form action="{{ route('admin.ads.update', $ad) }}" method="POST">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('admin.ads.update', $ad) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -91,6 +101,31 @@
                         </select>
                         @error('is_active') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Fayllar</label>
+                        @if ($ad->files->isNotEmpty())
+                            <div class="d-flex flex-column gap-2 mb-2">
+                                @foreach ($ad->files as $file)
+                                    <div class="d-flex align-items-center justify-content-between gap-2 p-2 rounded border bg-body-secondary">
+                                        <a href="{{ asset('storage/' . $file->file) }}" target="_blank" rel="noopener noreferrer"
+                                            class="small text-truncate">
+                                            {{ $file->displayName() }}
+                                        </a>
+                                        <button type="submit" form="ad-file-destroy-{{ $file->id }}"
+                                            class="btn btn-sm btn-outline-danger p-1"
+                                            onclick="return confirm('Fayl o\'chirilsinmi?')"
+                                            title="Faylni o'chirish" style="line-height: 1;">
+                                            <i data-feather="x" class="w-3 h-3"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                        <input type="file" name="files[]" multiple accept=".pdf,.doc,.docx"
+                            class="form-control @error('files') is-invalid @enderror @error('files.*') is-invalid @enderror">
+                        @error('files') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('files.*') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
 
                 <div class="mt-4 d-flex gap-2 justify-content-end">
@@ -99,6 +134,15 @@
                     <a href="{{ route('admin.ads.index') }}" class="btn btn-outline-secondary">Bekor qilish</a>
                 </div>
             </form>
+
+            @foreach ($ad->files as $file)
+                <form id="ad-file-destroy-{{ $file->id }}"
+                    action="{{ route('admin.ads.files.destroy', [$ad, $file]) }}" method="POST"
+                    class="d-none">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endforeach
         </div>
     </div>
 

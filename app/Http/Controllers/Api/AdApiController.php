@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Concerns\ResolvesPublicMediaUrl;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListRequest;
 use App\Http\Requests\InputRequest;
 use App\Models\Ad;
+use App\Models\AdFile;
 use App\Trait\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 
@@ -15,6 +17,7 @@ use Illuminate\Http\JsonResponse;
 class AdApiController extends Controller
 {
     use ApiResponseTrait;
+    use ResolvesPublicMediaUrl;
 
     /**
      * E'lonlar ro'yxati
@@ -35,7 +38,7 @@ class AdApiController extends Controller
             ->paginate($perPage);
 
         $paginator->getCollection()->transform(function (Ad $ad) use ($lang) {
-            return $this->formatAd($ad, $lang);
+            return $this->formatAd($ad, $lang, false);
         });
 
         return $this->paginatedSuccessResponse($paginator);
@@ -51,6 +54,7 @@ class AdApiController extends Controller
         $lang = $this->resolveLang($validated['lang']);
 
         $ad = Ad::query()
+            ->with('files')
             ->where('id', $id)
             ->where('is_active', $status)
             ->first();
@@ -59,15 +63,15 @@ class AdApiController extends Controller
             return $this->notFoundResponse('E\'lon topilmadi', 404);
         }
 
-        return $this->successResponse($this->formatAd($ad, $lang));
+        return $this->successResponse($this->formatAd($ad, $lang, true));
     }
 
     /**
      * @return array<string, mixed>
      */
-    private function formatAd(Ad $ad, string $lang): array
+    private function formatAd(Ad $ad, string $lang, bool $withFiles): array
     {
-        return [
+        $data = [
             'id' => $ad->id,
             'title' => $ad->{'title_'.$lang},
             'description' => $ad->{'description_'.$lang},
@@ -75,6 +79,20 @@ class AdApiController extends Controller
             'created_at' => $ad->created_at,
             'updated_at' => $ad->updated_at,
         ];
+
+        if (! $withFiles) {
+            return $data;
+        }
+
+        $data['files'] = $ad->files->map(function (AdFile $file) {
+            return [
+                'id' => $file->id,
+                'name' => $file->displayName(),
+                'url' => $this->storagePublicUrl($file->file),
+            ];
+        })->values()->all();
+
+        return $data;
     }
 
     private function resolveLang(string $lang): string

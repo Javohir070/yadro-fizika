@@ -54,6 +54,12 @@ Route::middleware('auth')->group(function () {
             ->middleware('permission:'.$menuPermissions['banners']);
         Route::resource('ads', AdController::class)
             ->middleware('permission:'.$menuPermissions['ads']);
+        Route::post('ads/{ad}/files', [AdController::class, 'storeFiles'])
+            ->middleware('permission:'.$menuPermissions['ads'])
+            ->name('ads.files.store');
+        Route::delete('ads/{ad}/files/{file}', [AdController::class, 'destroyFile'])
+            ->middleware('permission:'.$menuPermissions['ads'])
+            ->name('ads.files.destroy');
         Route::resource('conferences', ConferenceController::class)
             ->middleware('permission:'.$menuPermissions['conferences']);
         Route::post('conferences/{conference}/images', [ConferenceController::class, 'storeImages'])

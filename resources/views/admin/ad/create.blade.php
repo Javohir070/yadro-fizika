@@ -21,7 +21,17 @@
 
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
-            <form action="{{ route('admin.ads.store') }}" method="POST">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('admin.ads.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <ul class="nav nav-underline mb-3" id="ad-lang-tabs-create">
@@ -86,6 +96,13 @@
                             <option value="0" @selected(old('is_active') == '0')>Nofaol</option>
                         </select>
                         @error('is_active') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Fayllar</label>
+                        <input type="file" name="files[]" multiple accept=".pdf,.doc,.docx"
+                            class="form-control @error('files') is-invalid @enderror @error('files.*') is-invalid @enderror">
+                        @error('files') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('files.*') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
 
