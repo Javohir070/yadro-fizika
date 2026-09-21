@@ -120,6 +120,8 @@ class LaboratoryTeamApiController extends Controller
             'position' => $row->{'position_'.$lang},
             'degree' => $row->{'degree_'.$lang},
             'image' => $this->storagePublicUrl($row->image),
+            'email' => $row->email,
+            'phone' => $row->phone,
             'google_scholar' => $row->google_scholar,
             'web_of_science' => $row->web_of_science,
             'scopus' => $row->scopus,

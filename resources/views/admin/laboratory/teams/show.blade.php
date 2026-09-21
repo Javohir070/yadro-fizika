@@ -71,6 +71,22 @@
                                     <div class="fw-semibold">{{ $team->position_uz }}</div>
                                 </div>
                             </div>
+                            @if ($team->email)
+                                <div class="col-md-6">
+                                    <div class="p-3 rounded border">
+                                        <div class="text-body-tertiary fs-9 mb-1">Email</div>
+                                        <a href="mailto:{{ $team->email }}" class="fw-semibold">{{ $team->email }}</a>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($team->phone)
+                                <div class="col-md-6">
+                                    <div class="p-3 rounded border">
+                                        <div class="text-body-tertiary fs-9 mb-1">Telefon</div>
+                                        <a href="tel:{{ preg_replace('/[^\d+]/', '', $team->phone) }}" class="fw-semibold">{{ $team->phone }}</a>
+                                    </div>
+                                </div>
+                            @endif
                             @if ($team->degree_uz)
                                 <div class="col-md-12">
                                     <div class="p-3 rounded border">
