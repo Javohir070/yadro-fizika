@@ -132,6 +132,24 @@
 
 <hr class="my-4">
 
+<h6 class="fw-semibold mb-3">Aloqa ma'lumotlari (ixtiyoriy)</h6>
+<div class="row g-3">
+    <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" value="{{ old('email', $member?->email) }}"
+            class="form-control @error('email') is-invalid @enderror" placeholder="example@mail.com">
+        @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Telefon</label>
+        <input type="tel" name="phone" value="{{ old('phone', $member?->phone) }}"
+            class="form-control @error('phone') is-invalid @enderror" placeholder="+998 90 123 45 67">
+        @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+    </div>
+</div>
+
+<hr class="my-4">
+
 <h6 class="fw-semibold mb-3">Ilmiy profillar (ixtiyoriy)</h6>
 <div class="row g-3">
     <div class="col-md-6">

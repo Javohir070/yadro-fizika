@@ -23,6 +23,8 @@ class LaboratoryTeam extends Model
         'degree_ru',
         'degree_en',
         'image',
+        'email',
+        'phone',
         'google_scholar',
         'web_of_science',
         'scopus',
