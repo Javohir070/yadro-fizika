@@ -17,9 +17,9 @@ class UpdateGalleryRequest extends FormRequest
             'title_uz' => ['required', 'string', 'max:1000'],
             'title_ru' => ['required', 'string', 'max:1000'],
             'title_en' => ['required', 'string', 'max:1000'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'images' => ['nullable', 'array'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
+            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'is_active' => ['required', 'boolean'],
         ];
     }

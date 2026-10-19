@@ -20,7 +20,7 @@ class StoreEventRequest extends FormRequest
             'duties_uz' => ['required', 'string'],
             'duties_ru' => ['required', 'string'],
             'duties_en' => ['required', 'string'],
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'is_active' => ['required', 'boolean'],
         ];
     }

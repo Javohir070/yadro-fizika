@@ -14,7 +14,7 @@ class UpdateStructureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'is_active' => ['required', 'boolean'],
         ];
     }

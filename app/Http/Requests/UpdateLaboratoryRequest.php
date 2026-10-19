@@ -26,7 +26,7 @@ class UpdateLaboratoryRequest extends FormRequest
             'is_active' => ['required', 'boolean'],
             'order' => ['required', 'integer', 'min:0'],
             'images' => ['nullable', 'array'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
+            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ];
     }
 }

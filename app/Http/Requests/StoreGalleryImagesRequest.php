@@ -15,7 +15,7 @@ class StoreGalleryImagesRequest extends FormRequest
     {
         return [
             'images' => ['required', 'array', 'min:1'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
+            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ];
     }
 }

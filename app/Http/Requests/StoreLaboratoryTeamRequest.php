@@ -48,7 +48,7 @@ class StoreLaboratoryTeamRequest extends FormRequest
             'degree_en' => ['nullable', 'string'],
             'email' => ['nullable', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:1024'],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'google_scholar' => ['nullable', 'url', 'max:500'],
             'web_of_science' => ['nullable', 'url', 'max:500'],
             'scopus' => ['nullable', 'url', 'max:500'],
