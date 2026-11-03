@@ -27,6 +27,7 @@ return [
         'council-members' => 'Kengash a\'zolari',
         'video-gallers' => 'Video galereya',
         'stats' => 'Statistika bloklari',
+        'social-links' => 'Ijtimoiy tarmoqlar',
         'users' => 'Foydalanuvchilar',
         'roles' => 'Rollar',
         'permissions' => 'Ruxsatlar',

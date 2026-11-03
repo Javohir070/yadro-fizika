@@ -27,6 +27,7 @@ use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScientificActivityController;
 use App\Http\Controllers\ScientificCouncilController;
+use App\Http\Controllers\SocialLinkController;
 use App\Http\Controllers\StatController;
 use App\Http\Controllers\StructureController;
 use App\Http\Controllers\UserController;
@@ -134,6 +135,12 @@ Route::middleware('auth')->group(function () {
             ->middleware('permission:'.$menuPermissions['video-gallers']);
         Route::resource('stats', StatController::class)
             ->middleware('permission:'.$menuPermissions['stats']);
+        Route::get('social-links', [SocialLinkController::class, 'edit'])
+            ->middleware('permission:'.$menuPermissions['social-links'])
+            ->name('social-links.edit');
+        Route::put('social-links', [SocialLinkController::class, 'update'])
+            ->middleware('permission:'.$menuPermissions['social-links'])
+            ->name('social-links.update');
         Route::resource('users', UserController::class)
             ->middleware('permission:'.$menuPermissions['users']);
         Route::resource('roles', RoleController::class)
