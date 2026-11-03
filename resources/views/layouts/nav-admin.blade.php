@@ -340,6 +340,24 @@
 </li>
 @endcan
 
+@can('Ijtimoiy tarmoqlar')
+<li class="nav-item">
+    <div class="nav-item-wrapper">
+        <a class="nav-link label-1 {{ request()->is('admin/social-links*') ? 'active' : '' }}"
+            href="{{ route('admin.social-links.edit') }}" role="button" data-bs-toggle="" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon">
+                    <span data-feather="share-2" style="height: 20px; width: 20px;"></span>
+                </span>
+                <span class="nav-link-text-wrapper">
+                    <span class="nav-link-text">Ijtimoiy tarmoqlar</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</li>
+@endcan
+
 @can('Doktorantura')
 <li class="nav-item">
     <div class="nav-item-wrapper">
